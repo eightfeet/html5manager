@@ -1,3 +1,4 @@
+
 require.config({ //第一块，配置
     baseUrl: '',
     paths: {
@@ -27,21 +28,14 @@ require.config({ //第一块，配置
     }
 });
 
-require(['avalon', 'domReady!',  'bootstrap', 'css', 'colpick'], function() {
-        $('.selectcolor').colpick({
-            flat:false,
-            layout:'hex',
-            onSubmit:function(hsb,hex,rgb,el) {
-                $(el).css('background-color', '#'+hex);
-                $(el).colpickHide();
-            }
-        });
+require(['avalon', 'domReady!',  'bootstrap', 'css'], function() {
 
         avalon.define({
                 $id: "root",
                 webtitle: 'H5building',
                 footer:'',
                 header:'modules/header/header.html',
+                addpage:'modules/addpage/addpage.html',
                 nav:[{
                     url:'#',
                     name:'首页'
