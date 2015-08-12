@@ -1,12 +1,14 @@
-<div class="chart-wrapper">
-    <div class="chart-title clearfix">
-        <span class="glyphicon  glyphicon-picture" aria-hidden="true"></span> 元素1
-        <small class="pull-right">
-        <label  style="margin-right: 10px;">
-        <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
-        </label>
-        </small>
-        <small class="pull-right">
+<div ms-controller="editpage">
+    <div class="chart-wrapper">
+        <div class="chart-title clearfix">
+            <!-- 这里判断是文字模块还是图片模块 -->
+            <span class="glyphicon " ms-class="{{picOrtext?'glyphicon-picture':'glyphicon-text-background'}}" aria-hidden="true"></span> 元素1
+            <small class="pull-right">
+                <label  style="margin-right: 10px;">
+                <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
+                </label>
+            </small>
+            <small class="pull-right">
             <label  style="margin-right: 10px;">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"><span class="glyphicon  glyphicon-circle-arrow-up" aria-hidden="true"></span></button>
@@ -14,70 +16,86 @@
                 </div>
             </label>
         </small>
-    </div>
-    <!-- block -->
-    <div class="chart-stage">
-        <div id="chart-05">
-            <div class="row">
-                <label for="" class=" col-sm-3 text-right">上传图片</label>
-                <div class=" col-sm-9">
-                    <input type="file" id="exampleInputFile">
+        </div>
+        <!-- block -->
+        <div class="chart-stage">
+            <div id="chart-05">
+                <!-- 判断是否是图片 -->
+                <div class="row" ms-if="picOrtext">
+                    <label for="" class=" col-sm-3 text-right">上传图片</label>
+                    <div class=" col-sm-9">
+                        <input type="file" id="exampleInputFile">
+                    </div>
                 </div>
-            </div>
-            <fieldset>
-                <legend><small>图层属性</small></legend>
-                <div class="clearfix">
-                    <small class="pull-left">
+                <!-- 判断是否是文字 -->
+                <div class="row"  ms-if="!picOrtext">
+                    <label for="" class=" col-sm-3 text-right">文本 内容</label>
+                    <div class=" col-sm-9">
+                        <script type="text/plain" id="myEditor">
+                            <p>这里我可以写一些输入提示</p>
+                        </script>
+                    </div>
+                </div>
+                <fieldset>
+                    <legend><small>图层属性</small></legend>
+                    <div class="clearfix">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         背景颜色:
                         <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #fff;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                         </label>
                     </small>
-                    <small class="pull-left">
+                    <small class="pull-left"  ms-if="!picOrtext">
+                        <label class="pull-left" style="margin-right: 10px;">
+                        字体颜色:
+                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #333;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        </label>
+                    </small>
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         宽度:
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
-                    <small class="pull-left">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         高度:
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
-                </div>
-                <hr>
-                <div class="clearfix">
-                    <small class="pull-left">
+                    </div>
+                    <hr>
+                    <div class="clearfix">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         左边距:
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
-                    <small class="pull-left">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         右边距:
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
-                    <small class="pull-left">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         上边距:
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
-                    <small class="pull-left">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         下边距:
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend><small>动画属性</small></legend>
-                <div class="clearfix">
-                    <small class="pull-left">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend><small>动画属性</small></legend>
+                    <div class="clearfix">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         入场动画:
                         <select class="input-sm">
@@ -88,123 +106,17 @@
                         </select>
                         </label>
                     </small>
-                    <small class="pull-left">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         延时:
                         <input class=" input-sm propw" type="text" placeholder="s">
                         </label>
                     </small>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-    <!-- block end -->
-</div>
-<div class="chart-wrapper">
-    <div class="chart-title clearfix">
-        <span class="glyphicon  glyphicon-text-background" aria-hidden="true"></span> 元素1
-        <small class="pull-right">
-            <label  style="margin-right: 10px;">
-            <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
-            </label>
-        </small>
-        <small class="pull-right">
-            <label  style="margin-right: 10px;">
-            <div class="btn-group">
-            <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"><span class="glyphicon  glyphicon-circle-arrow-up" aria-hidden="true"></span></button>
-            <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></button>
+                    </div>
+                </fieldset>
             </div>
-            </label>
-        </small>
-    </div>
-    <!-- block -->
-    <div class="chart-stage">
-        <div id="chart-05">
-            <div class="row">
-                <label for="" class=" col-sm-3 text-right">文本 内容</label>
-                <div class=" col-sm-9">
-                    <textarea name="" style="width:100%"></textarea>
-                </div>
-            </div>
-            <fieldset>
-                <legend><small>图层属性</small></legend>
-                <div class="clearfix">
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        背景颜色:
-                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #fff;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
-                        </label>
-                    </small>
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        字体颜色:
-                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #333;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
-                        </label>
-                    </small>
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        宽度:
-                        <input class=" input-sm propw" type="text" placeholder="em">
-                        </label>
-                    </small>
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        高度:
-                        <input class=" input-sm propw" type="text" placeholder="em">
-                        </label>
-                    </small>
-                </div>
-                <hr>
-                <div class="clearfix">
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        左边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
-                        </label>
-                    </small>
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        右边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
-                        </label>
-                        </small>
-                                            <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        上边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
-                        </label>
-                        </small>
-                                            <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        下边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
-                        </label>
-                    </small>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend><small>动画属性</small></legend>
-                <div class="clearfix">
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        入场动画:
-                        <select class="input-sm">
-                        <option>All blocks</option>
-                        <option>Howard</option>
-                        <option selected>Folsom</option>
-                        <option>Harrison</option>
-                        </select>
-                        </label>
-                    </small>
-                    <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
-                        延时:
-                        <input class=" input-sm propw" type="text" placeholder="s">
-                        </label>
-                    </small>
-                </div>
-            </fieldset>
         </div>
+        <!-- block end -->
     </div>
-    <!-- block end -->
 </div>
+<script src="modules/editpage/editpage.js" type="text/javascript"></script>

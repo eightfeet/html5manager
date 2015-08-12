@@ -9,7 +9,8 @@ require.config({ //第一块，配置
         css: 'vendor/require/css',
         bootstrap: 'vendor/bootstrap/js/bootstrap.min',
         header:'modules/header/header',
-        colpick:'vendor/require/colpick'
+        colpick:'vendor/require/colpick',
+        ueditor:'vendor/ueditor/ueditor.config'
     },
     priority: ['text', 'css'],
     shim: {
@@ -34,8 +35,8 @@ require(['avalon', 'domReady!',  'bootstrap', 'css'], function() {
                 $id: "root",
                 webtitle: 'H5building',
                 footer:'',
-                header:'modules/header/header.html',
-                addpage:'modules/addpage/addpage.html',
+                header:'modules/header/header.html',//头部
+                addpage:'modules/addpage/addpage.html',//添加页面模板
                 nav:[{
                     url:'#',
                     name:'首页'
