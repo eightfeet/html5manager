@@ -25,9 +25,9 @@
     <!-- 页面内容 -->
     <div class="contentbox ">
         <div class="tabtitle">
-            <div class="tab"><a href="javascript:;">page1</a></div>
-            <div class="tab selecttab"><a href="javascript:;">page2</a></div>
-            <div class="tab"><a href="javascript:;" class="add">+</a></div>
+            <div class="tab" ms-repeat="pages"><a href="javascript:;">page1</a></div>
+            <!-- <div class="tab selecttab"><a href="javascript:;">page2</a></div> -->
+            <div class="tab"><a href="javascript:;" class="add" ms-click="newpage">+</a></div>
         </div>
         <div class="tabcontent clearfix" ms-include-src="addpage" >
         </div>

@@ -22,18 +22,18 @@
             <div id="chart-05">
                 <!-- 判断是否是图片 -->
                 <div class="row" ms-if="picOrtext">
-                    <label for="" class=" col-sm-3 text-right">上传图片</label>
                     <div class=" col-sm-9">
-                        <input type="file" id="exampleInputFile">
+                            <div id="fileList" class="uploader-list"><ul class="list"></ul></div>
+                            <div id="upload">上传图片</div>
                     </div>
                 </div>
+
                 <!-- 判断是否是文字 -->
                 <div class="row"  ms-if="!picOrtext">
                     <label for="" class=" col-sm-3 text-right">文本 内容</label>
                     <div class=" col-sm-9">
-                        <script type="text/plain" id="myEditor">
-                            <p>这里我可以写一些输入提示</p>
-                        </script>
+                        <!-- <script  type="text/plain" id="myeditor" name="contents" style="height:100px;">初始化的内容</script> -->
+                        <textarea name="" style="width:80%"></textarea>
                     </div>
                 </div>
                 <fieldset>
@@ -45,10 +45,17 @@
                         <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #fff;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                         </label>
                     </small>
-                    <small class="pull-left"  ms-if="!picOrtext">
+                    <div class="clearfix">
+                        <small class="pull-left" ms-if="!picOrtext">
                         <label class="pull-left" style="margin-right: 10px;">
                         字体颜色:
-                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #333;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #000;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        </label>
+                    </small>
+                    <small class="pull-left">
+                        <label class="pull-left" style="margin-right: 10px;">
+                        大小:
+                        <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
                         <small class="pull-left">
@@ -63,10 +70,22 @@
                         <input class=" input-sm propw" type="text" placeholder="em">
                         </label>
                     </small>
+                    <small class="pull-left">
+                        <label class="pull-left" style="margin-right: 10px;">
+                        圆角:
+                        <input class=" input-sm propw" type="text" placeholder="0em">
+                        </label>
+                    </small>
                     </div>
                     <hr>
                     <div class="clearfix">
-                        <small class="pull-left">
+                        <small class="pull-left" ms-if="!picOrtext">
+                        <label class="pull-left" style="margin-right: 10px;">
+                        内边距:
+                        <input class=" input-sm propw" type="text" placeholder="em">
+                        </label>
+                    </small>
+                    <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         左边距:
                         <input class=" input-sm propw" type="text" placeholder="em">
@@ -110,6 +129,17 @@
                         <label class="pull-left" style="margin-right: 10px;">
                         延时:
                         <input class=" input-sm propw" type="text" placeholder="s">
+                        </label>
+                    </small>
+                    <small class="pull-left">
+                        <label class="pull-left" style="margin-right: 10px;">
+                        退场动画:
+                        <select class="input-sm">
+                            <option>All blocks</option>
+                            <option>Howard</option>
+                            <option selected>Folsom</option>
+                            <option>Harrison</option>
+                        </select>
                         </label>
                     </small>
                     </div>

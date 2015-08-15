@@ -10,7 +10,13 @@ require.config({ //第一块，配置
         bootstrap: 'vendor/bootstrap/js/bootstrap.min',
         header:'modules/header/header',
         colpick:'vendor/require/colpick',
-        ueditor:'vendor/ueditor/ueditor.config'
+        //百度编辑器
+        editor: 'vendor/ueditor/ueditor.all',
+        editor_cfg: 'vendor/ueditor/ueditor.config',
+        zh_cn: 'vendor/ueditor/lang/zh-cn/zh-cn',
+        upload:'vendor/uploader/upload',
+        //百度上传
+        uploader: 'vendor/uploader/webuploader'
     },
     priority: ['text', 'css'],
     shim: {
@@ -20,18 +26,24 @@ require.config({ //第一块，配置
         avalon: {
             exports: "avalon"
         },
-        bootstrap: {
-            exports: "jQuery"
+        editor: {
+            exportsx: 'UE'
         },
-        colpick: {
-            exports: "jQuery"
+        editor_cfg: {
+            exports: 'UEDITOR_CONFIG'
+        },
+        zh_cn: {
+            deps:['editor','editor_cfg']
+        },
+        uploader: {
+            dpes: ['jquery']
         }
     }
 });
 
 require(['avalon', 'domReady!',  'bootstrap', 'css'], function() {
-
-        avalon.define({
+        //window.UEDITOR_HOME_URL = "vendor/ueditor/";
+       var msroot = avalon.define({
                 $id: "root",
                 webtitle: 'H5building',
                 footer:'',
@@ -46,7 +58,13 @@ require(['avalon', 'domReady!',  'bootstrap', 'css'], function() {
                 },{
                     url:'#',
                     name:'其他'
-                }]
+                }],
+                pages:[],
+                newpage:function(){
+                    msroot.pages.pushArray({
+                    'name':'page'+msroot.pages.length+1
+                });
+                }
             });
         avalon.scan();
 });
