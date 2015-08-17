@@ -2,7 +2,6 @@ require(['avalon','css!vendor/uploader/webuploader.css','colpick','domReady!' ,'
 
     console.log(arguments);
 
-
     upload.initUpload({
         errorFile:function(){
             console.log('上传失败！');

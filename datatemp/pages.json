@@ -1,0 +1,51 @@
+{
+    "body": [{
+        "pgName": "page1",
+        "pgAnimate": "faldOut",
+        "pgBackgroundcolor": "#fff",
+        "pgBackgroundimage": "../images/bg.jpg",
+        "pgIndex": 3,
+        "pgEle": [{
+            "elName": "element1",
+            "elType": "text",
+            "elBackgroundcolor": "#fff",
+            "elZindex": 1,
+            "elSize": 12,
+            "elWidth": 100,
+            "elHeight": 100,
+            "elBorderradius": 3,
+            "elLeft": 100,
+            "elRight": 200,
+            "elTop": 200,
+            "elBottom": 200,
+            "elAnimentin": "balanceIn",
+            "elAnimentout": "balanceOut",
+            "elAnimentdelaytime": "3s"
+        }]
+    }, {
+        "pgName": "page2",
+        "pgAnimate": "faldOut",
+        "pgBackgroundcolor": "#fff",
+        "pgBackgroundimage": "../images/bg.jpg",
+        "pgIndex": 3,
+        "pgEle": [{
+            "elName": "element1",
+            "elType": "img",
+            "elBackgroundcolor": "#fff",
+            "elZindex": 1,
+            "elSize": "",
+            "elWidth": 100,
+            "elHeight": 100,
+            "elBorderradius": 3,
+            "elLeft": 100,
+            "elRight": 200,
+            "elTop": 200,
+            "elBottom": 200,
+            "elAnimentin": "balanceIn",
+            "elAnimentout": "balanceOut",
+            "elAnimentdelaytime": "3s"
+        }]
+    }],
+    "errorMsg": "数据请求失败",
+    "status": "0"
+}

@@ -1,26 +1,26 @@
-<div ms-controller="addpage">
+<div ms-controller="addpage"><!-- ms-controller="addpage" -->
     <div class="viewbar">
         <div class="viewbox "></div>
     </div>
     <div class="setbar">
         <div class="setbox">
             <div class="clearfix">
+                <!-- <button ms-click="test">test</button> -->
                 <small class="pull-left">
                             <label class="pull-left" style="margin-right: 10px;">
                             转场动画:
                             <select>
-                                <option>All blocks</option>
-                                <option>Howard</option>
-                                <option selected>Folsom</option>
-                                <option>Harrison</option>
+                                <option ms-repeat="pgAnimates" value="">{{el.animateName}}</option>
                             </select>
                             </label>
                         </small>
+                  <!-- 删除页面元素 -->
                 <small class="pull-right">
                 <label  style="margin-right: 10px;">
                 <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                 </label>
             </small>
+                <!-- 创建页面元素 -->
                 <small class="pull-right">
                             <label class="pull-left" style="margin-right: 10px;">
                             创建页面元素:
@@ -30,10 +30,18 @@
                             </div>
                             </label>
                         </small>
+                <!-- 设置页面背景颜色 -->
                 <small class="pull-right">
                             <label class="pull-left" style="margin-right: 10px;">
                             背景颜色:
-                            <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #fff;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-default btn-xs selectcolor" ms-css-background-color="" aria-label="Center Align"  style="background: #fff;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                            </label>
+                        </small>
+                <!-- 设置页面背景图片 -->
+                <small class="pull-right">
+                            <label class="pull-left" style="margin-right: 10px;">
+                            背景图片
+                            <div id="bgUpload"  style="display: inline-block;"><span>上传</span></div>
                             </label>
                         </small>
             </div>

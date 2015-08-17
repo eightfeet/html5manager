@@ -1,0 +1,13 @@
+{
+    "body": [{
+        "animateName": "All blocks"
+    }, {
+        "animateName": "Howard"
+    }, {
+        "animateName": "Folsom"
+    }, {
+        "animateName": "Harrison"
+    }],
+    "errorMsg": "数据请求失败",
+    "status": "0"
+}

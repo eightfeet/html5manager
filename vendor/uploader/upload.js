@@ -12,6 +12,7 @@ define(['jquery','uploader'], function($,WebUploader) {
             "title":"img",
             "extensions":'jpg,jpeg,png',
             "mimeTypes":"image/*",
+            "serverUrl":"http://xxx",
             onSuccess: function() {
                 return false;   //成功的回调事件
             },
@@ -28,14 +29,14 @@ define(['jquery','uploader'], function($,WebUploader) {
 
         $.extend(configs, options);
 
-        var serverUrl = 'channel/';
+
         var uploader = WebUploader.create({
 
             // swf文件路径
             swf: 'Uploader.swf',
 
             // 文件接收服务端。
-            server: serverUrl,
+            server: configs.serverUrl,
 
             // 选择文件的按钮
             pick:configs.uploadBtn,
