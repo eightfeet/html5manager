@@ -107,22 +107,21 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
             avalon.log("data ready!");
 
             //数据填充到pages
-            var pages = avalon.vmodels.root.pages;
-            pages.pushArray(data.body);
-
-            //页面vm数据填充
-            var page = pages[avalon.vmodels.root.selecttab];
-            pages.pgName = page.pgName; //页面名称
-            pages.pgAnimate = page.pgAnimate; //页面动画
-            pages.pgBackgroundcolor = page.pgBackgroundcolor; //页面背景色
-            pages.pgBackgroundimage = page.pgBackgroundimage; //页面背景图片
-            pages.pgIndex = page.pgIndex; //页码顺序
-            pages.pgEle = page.pgEle; //页面图层
-
+            msroot.pages.pushArray(data.body);
+            var page = msroot.pages[msroot.selecttab];
+            msroot.pgName=page.pgName;
+            msroot.pgAnimate=page.pgAnimate;
+            msroot.pgBackgroundcolor=page.pgBackgroundcolor;
+            msroot.pgBackgroundimage=page.pgBackgroundimage;
+            msroot.pgIndex=page.pgIndex;
+            msroot.pgEle=page.pgEle;
         },
         error: function(data) {
             avalon.log("bad connect!");
         }
     });
+
+/*    A.$watch('a', function(v){      B.b = v        })
+    B.$watch('b', function(v){      A.a = v        })*/
 
 });

@@ -12,6 +12,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         $id: "addpage",
         editpage: 'modules/editpage/editpage.html',
         pgAnimates: [], //页面动画专场方式
+        pgAnimate:avalon.vmodels.root.pages[avalon.vmodels.root.selecttab].pgAnimate,//当前页面专场动画
         test: function() {
             msroot.pages[0].pgBackgroundcolor = msaddpage.pgBackgroundcolor;
         }
@@ -26,9 +27,10 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         data: {},
         success: function(data) {
             avalon.log("data ready!");
-            avalon.log(data.body);
+
             //数据填充到动画
             avalon.vmodels.addpage.pgAnimates.pushArray(data.body);
+
         },
         error: function(data) {
             avalon.log("bad connect!");
