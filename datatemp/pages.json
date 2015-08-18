@@ -1,7 +1,7 @@
 {
     "body": [{
         "pgName": "page1",
-        "pgAnimate": "111111",
+        "pgAnimate": "1111",
         "pgBackgroundcolor": "#fff",
         "pgBackgroundimage": "../images/bg.jpg",
         "pgIndex": 3,
@@ -24,8 +24,8 @@
         }]
     }, {
         "pgName": "page2",
-        "pgAnimate": "faldOut",
-        "pgBackgroundcolor": "#fff",
+        "pgAnimate": "2222",
+        "pgBackgroundcolor": "#eee",
         "pgBackgroundimage": "../images/bg.jpg",
         "pgIndex": 3,
         "pgEle": [{

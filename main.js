@@ -44,13 +44,79 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
 
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
 
+    //数据请求方法
+    var dataRequire = function(url, type, dataarg, callback) {
+        $.ajax({
+            url: url,
+            type: type,
+            dataType: 'json',
+            data: dataarg,
+            success: callback,
+            error: function(data) {
+                avalon.log("bad connect!");
+            }
+        });
+    };
+
+    //每个单页面的数据回填
+    var dataFill = function(page) {
+        var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+
+        //当前页面全局信息
+        addpageMd.pgName = rootMd.pages[page].pgName;
+        addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
+        addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
+        addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
+        addpageMd.pgIndex = page;
+
+        //当前页面元素信息
+        editpageMd.layoutInfo.clear();
+        editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+    };
+
+    //离开时保存当前单页面数据
+    var dataSave = function(page) {
+        var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+
+        //离开时当前页面信息
+        var pageTemp = {
+            "pgName": addpageMd.pgName,
+            "pgAnimate": addpageMd.pgAnimate,
+            "pgBackgroundcolor": addpageMd.pgBackgroundcolor,
+            "pgBackgroundimage": addpageMd.pgBackgroundimage,
+            "pgIndex": addpageMd.pgIndex,
+            "pgEle": editpageMd.pgEle
+        };
+
+        rootMd.pages[page] = {};
+        rootMd.pages[page] = pageTemp;
+    };
+
+    //创建单个页面时要向pages数据中存入一个页面对象元素
+    //这个对象元素包含一个单页面的所有属性，这里把值设为空
+    var dataNew = function(page) {
+        var rootMd = avalon.vmodels.root;
+        var dataTemp = {
+            "pgName": 'page' + (page + 1),
+            "pgAnimate": '',
+            "pgBackgroundcolor": '',
+            "pgBackgroundimage": '',
+            "pgIndex": page,
+            "pgEle": []
+        };
+        rootMd.pages.push(dataTemp);
+    };
+
     var msroot = avalon.define({
         $id: "root",
         webtitle: 'H5building',
         footer: '',
         header: 'modules/header/header.html', //头部模板
         addpage: 'modules/addpage/addpage.html', //添加页面模板
-        editpage: 'modules/editpage/editpage.html', //编辑页面模板
         nav: [{
             url: '#',
             name: '首页'
@@ -64,64 +130,41 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
 
         //这里声明一个存放所有页面的数据
         pages: [],
+        //同时备份一份页面数据
+        $pagesCopy: [],
 
         //当前选择页面，这个很有用以后针对对应页面做操作就是以他为索引
         selecttab: 0,
 
-        //页面vm
-        pgName: '', //页面名称
-        pgAnimate: '', //页面动画
-        pgBackgroundcolor: '', //页面背景色
-        pgBackgroundimage: '', //页面背景图片
-        pgIndex: '', //页面顺序
-        pgEle: [], //页面图层
-
 
         //创建单个页面
         newpage: function() {
-            msroot.pages.push({
-                //默认命名为“page1，page2...”，暂时不允许修改页面名
-                //当页面被删除是会有重名现象需要解决，暂时放一放
-                'pgName': 'page' + (msroot.pages.length + 1)
-            });
+            //默认命名为“page1，page2...”，暂时不允许修改页面名
+            //当页面被删除是会有重名现象需要解决，暂时放一放
+            dataNew(msroot.pages.length);
 
             //把当前选择索引值放到最新创建的页面上
             msroot.selecttab = msroot.pages.length - 1; //index从0开始，
+            //重新填充新页面数据
+            dataFill(msroot.selecttab);
         },
 
+        //页面点击时需要做以下事情
+        //保存当前页面数据
+        //对下一页面填充数据
         //设置当前页的索引值
         msSelected: function($event, $index, el) {
+            dataSave(msroot.selecttab);
+            dataFill($index);
             msroot.selecttab = $index;
         }
 
     });
     avalon.scan();
 
-    //数据请求与填充
-    $.ajax({
-        url: 'datatemp/pages.json',
-        type: 'POST',
-        dataType: 'json',
-        data: {},
-        success: function(data) {
-            avalon.log("data ready!");
 
-            //数据填充到pages
-            msroot.pages.pushArray(data.body);
-            var page = msroot.pages[msroot.selecttab];
-            msroot.pgName=page.pgName;
-            msroot.pgAnimate=page.pgAnimate;
-            msroot.pgBackgroundcolor=page.pgBackgroundcolor;
-            msroot.pgBackgroundimage=page.pgBackgroundimage;
-            msroot.pgIndex=page.pgIndex;
-            msroot.pgEle=page.pgEle;
-        },
-        error: function(data) {
-            avalon.log("bad connect!");
-        }
-    });
 
-/*    A.$watch('a', function(v){      B.b = v        })
-    B.$watch('b', function(v){      A.a = v        })*/
+    /*  A.$watch('a', function(v){      B.b = v        })
+        B.$watch('b', function(v){      A.a = v        })*/
 
 });
