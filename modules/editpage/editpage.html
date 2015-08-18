@@ -1,8 +1,8 @@
 <div ms-controller="editpage">
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" ms-repeat="layoutInfo" data-repeat-rendered="repeatReady">
         <div class="chart-title clearfix">
             <!-- 这里判断是文字模块还是图片模块 -->
-            <span class="glyphicon " ms-class="{{picOrtext?'glyphicon-picture':'glyphicon-text-background'}}" aria-hidden="true"></span> 元素1
+            <span class="glyphicon " ms-class="{{el.elType=='img'?'glyphicon-picture':'glyphicon-text-background'}}" aria-hidden="true"></span> {{el.elName}}
             <small class="pull-right">
                 <label  style="margin-right: 10px;">
                 <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
@@ -21,15 +21,15 @@
         <div class="chart-stage">
             <div id="chart-05">
                 <!-- 判断是否是图片 -->
-                <div class="row" ms-if="picOrtext">
+                <div class="row" ms-if="el.elType=='img'?true:false">
                     <div class=" col-sm-9">
                             <div id="fileList" class="uploader-list"><ul class="list"></ul></div>
-                            <div id="upload">上传图片</div>
+                            <div class="imgUpload">上传图片</div>
                     </div>
                 </div>
 
                 <!-- 判断是否是文字 -->
-                <div class="row"  ms-if="!picOrtext">
+                <div class="row"  ms-if="el.elType=='text'?true:false">
                     <label for="" class=" col-sm-3 text-right">文本 内容</label>
                     <div class=" col-sm-9">
                         <!-- <script  type="text/plain" id="myeditor" name="contents" style="height:100px;">初始化的内容</script> -->
@@ -46,13 +46,13 @@
                         </label>
                     </small>
                     <div class="clearfix">
-                        <small class="pull-left" ms-if="!picOrtext">
+                        <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
                         字体颜色:
                         <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #000;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                         </label>
                     </small>
-                    <small class="pull-left" ms-if="!picOrtext">
+                    <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
                         大小:
                         <input class=" input-sm propw" type="text" placeholder="em">

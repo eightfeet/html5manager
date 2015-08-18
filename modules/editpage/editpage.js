@@ -1,12 +1,5 @@
 require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!', 'upload'], function(avalon, css, colpick, dom, upload) {
 
-    console.log(arguments);
-
-    upload.initUpload({
-        errorFile: function() {
-            console.log('上传失败！');
-        }
-    });
 
     //数据请求方法
     var dataRequire = function(url, type, dataarg, callback) {
@@ -23,16 +16,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
     };
 
 
-    //操作颜色
-    $('.selectcolor').colpick({
-        flat: false,
-        layout: 'hex',
-        onSubmit: function(hsb, hex, rgb, el) {
-            $(el).css('background-color', '#' + hex);
-            $(el).colpickHide();
-            $(el).next('input').val('#' + hex);
-        }
-    });
+
 
     //upload.initUpload();
 
@@ -44,7 +28,26 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
 
         //创建元素时设置元素是图片(true)还是文字(false)
         picOrtext: true,
-        layoutInfo: []
+        layoutInfo: [],
+        repeatReady: function() {
+            //操作颜色
+            $('.selectcolor').colpick({
+                flat: false,
+                layout: 'hex',
+                onSubmit: function(hsb, hex, rgb, el) {
+                    $(el).css('background-color', '#' + hex);
+                    $(el).colpickHide();
+                    $(el).next('input').val('#' + hex);
+                }
+            });
+            //上传图片
+            upload.initUpload({
+                "uploadBtn":".imgUpload",
+                errorFile: function() {
+                    console.log('上传失败！');
+                }
+            });
+        }
     });
 
     avalon.scan();
@@ -65,19 +68,22 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
                 addpageMd = avalon.vmodels.addpage,
                 editpageMd = avalon.vmodels.editpage;
 
-                rootMd.pages.pushArray(data.body);
-                avalon.mix(true, rootMd.$pagesCopy, data.body);
+            rootMd.pages.pushArray(data.body);
+            avalon.mix(true, rootMd.$pagesCopy, data.body);
 
-                //当前页面全局信息
-                addpageMd.pgName=rootMd.pages[rootMd.selecttab].pgName;
-                addpageMd.pgAnimate=rootMd.pages[rootMd.selecttab].pgAnimate;
-                addpageMd.pgBackgroundcolor=rootMd.pages[rootMd.selecttab].pgBackgroundcolor;
-                addpageMd.pgBackgroundimage=rootMd.pages[rootMd.selecttab].pgBackgroundimage;
-                addpageMd.pgIndex=rootMd.selecttab;
+            //当前页面全局信息
+            addpageMd.pgName = rootMd.pages[rootMd.selecttab].pgName;
+            addpageMd.pgAnimate = rootMd.pages[rootMd.selecttab].pgAnimate;
+            addpageMd.pgBackgroundcolor = rootMd.pages[rootMd.selecttab].pgBackgroundcolor;
+            addpageMd.pgBackgroundimage = rootMd.pages[rootMd.selecttab].pgBackgroundimage;
+            addpageMd.pgIndex = rootMd.selecttab;
 
-                //当前页面元素信息
-                //editpageMd.layoutInfo.clear()
-                editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
+            //当前页面元素信息
+            //editpageMd.layoutInfo.clear()
+            //这里做两分数据，
+            //一份是为左边视图绑定的，一份是为右边操作绑定的
+            addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
+            editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
 
         });
     avalon.scan();

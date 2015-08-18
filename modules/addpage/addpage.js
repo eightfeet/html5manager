@@ -37,7 +37,9 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
 
         //当前页面元素信息
         editpageMd.layoutInfo.clear();
-        editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+        addpageMd.elementInfo.clear();
+        addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
+        editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
     };
 
     //创建页面
@@ -75,6 +77,10 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         pgBackgroundcolor: '', //页面背景色
         pgBackgroundimage: '', //页面背景图片
         pgIndex: '', //页面顺序
+
+        //vm显示视图监控数据（页面元素）
+        elementInfo: [],
+
 
         //删除页面
         deletePage: function(){

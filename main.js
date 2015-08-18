@@ -64,16 +64,20 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
             addpageMd = avalon.vmodels.addpage,
             editpageMd = avalon.vmodels.editpage;
 
-        //当前页面全局信息
-        addpageMd.pgName = rootMd.pages[page].pgName;
-        addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
-        addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
-        addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
-        addpageMd.pgIndex = page;
+             //当前页面全局信息
+            addpageMd.pgName = rootMd.pages[page].pgName;
+            addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
+            addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
+            addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
+            addpageMd.pgIndex = page;
+            editpageMd.layoutInfo.clear();
+            editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+            addpageMd.elementInfo.clear();
+            addpageMd.elementInfo = rootMd.pages[page].pgEle;
 
-        //当前页面元素信息
-        editpageMd.layoutInfo.clear();
-        editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+            //当前页面元素信息
+            //editpageMd.layoutInfo.clear();
+            //addpageMd.elementInfo.clear();
     };
 
     //离开时保存当前单页面数据
@@ -92,8 +96,10 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
             "pgEle": editpageMd.pgEle
         };
 
-        rootMd.pages[page] = {};
-        rootMd.pages[page] = pageTemp;
+        //rootMd.pages[page] = {};
+        //rootMd.pages[page] = pageTemp;
+        rootMd.pages.set(page, pageTemp);
+        avalon.log(rootMd.pages.$model)
     };
 
     //创建单个页面时要向pages数据中存入一个页面对象元素
