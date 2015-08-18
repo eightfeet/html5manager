@@ -33,7 +33,7 @@
                     <label for="" class=" col-sm-3 text-right">文本 内容</label>
                     <div class=" col-sm-9">
                         <!-- <script  type="text/plain" id="myeditor" name="contents" style="height:100px;">初始化的内容</script> -->
-                        <textarea name="" style="width:80%"></textarea>
+                        <textarea name="" style="width:80%" ms-duplex="el.elContent"></textarea>
                     </div>
                 </div>
                 <fieldset>
@@ -42,38 +42,40 @@
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         背景颜色:
-                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #fff;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"
+                        ms-css-background="el.elBackgroundcolor" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                         </label>
                     </small>
                     <div class="clearfix">
                         <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
                         字体颜色:
-                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"  style="background: #000;" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"
+                        ms-css-color="el.elColor" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                         </label>
                     </small>
                     <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
                         大小:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elSize">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         宽度:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elWidth">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         高度:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elHeight">
                         </label>
                     </small>
                     <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         圆角:
-                        <input class=" input-sm propw" type="text" placeholder="0em">
+                        <input class=" input-sm propw" type="number" placeholder="0em" ms-duplex = "el.elBorderradius">
                         </label>
                     </small>
                     </div>
@@ -82,31 +84,31 @@
                         <small class="pull-left" ms-if="!picOrtext">
                         <label class="pull-left" style="margin-right: 10px;">
                         内边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em">
                         </label>
                     </small>
                     <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         左边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elLeft">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         右边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elRight">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         上边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elTop">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         下边距:
-                        <input class=" input-sm propw" type="text" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elBottom">
                         </label>
                     </small>
                     </div>

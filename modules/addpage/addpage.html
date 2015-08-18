@@ -1,7 +1,28 @@
 <div ms-controller="addpage"><!-- ms-controller="addpage" -->
     <div class="viewbar">
         <div class="viewbox ">
-            <div class="page" ms-css-background-color="pgBackgroundcolor"></div>
+            <div class="page" ms-css-background-color="pgBackgroundcolor">
+                <div class="viewobj" ms-repeat="elementInfo"
+                    ms-css-background-color="el.elBackgroundcolor"
+                    ms-css-z-index="el.elZindex"
+                    ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
+                    ms-css-left="{{el.elLeft+'em'}}"
+                    ms-css-right="{{el.elLeft.length>=0?'':(el.elRight+'em')}}"
+                    ms-css-top="{{el.elTop+'em'}}"
+                    ms-css-bottom="{{el.elTop.length>0?'':(el.elBottom+'em')}}"
+                    ms-css-width="el.elType == 'text'?(el.elWidth+'em'):''"
+                    ms-css-height="el.elType == 'text'?(el.elHeight+'em'):''"
+                    ms-css-border-radius="{{el.elType == 'text'?(el.elBorderradius+'em'):''}}"
+                    ms-class="{{el.elAnimentin+' '+el.elAnimentdelaytime}}">
+
+                    <img ms-src="el.elType == 'img'?el.elContent:''" alt=""
+                    ms-if="el.elType == 'img'?true:false"
+                    ms-css-border-radius="{{el.elType == 'img'?(el.elBorderradius+'em'):''}}"
+                    ms-css-width="el.elType == 'img'?(el.elWidth+'em'):''"
+                    ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
+                    <span ms-if="el.elType == 'text'?true:false">{{el.elContent}}</span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="setbar">
