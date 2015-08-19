@@ -5,11 +5,10 @@
                 <div class="viewobj" ms-repeat="elementInfo"
                     ms-css-background-color="el.elBackgroundcolor"
                     ms-css-z-index="el.elZindex"
-                    ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
                     ms-css-left="{{el.elLeft+'em'}}"
-                    ms-css-right="{{el.elLeft.length>=0?'':(el.elRight+'em')}}"
+                    ms-css-padding="{{el.elPadding+'em'}}"
                     ms-css-top="{{el.elTop+'em'}}"
-                    ms-css-bottom="{{el.elTop.length>0?'':(el.elBottom+'em')}}"
+                    ms-css-text-align="{{el.elAlign}}"
                     ms-css-width="el.elType == 'text'?(el.elWidth+'em'):''"
                     ms-css-height="el.elType == 'text'?(el.elHeight+'em'):''"
                     ms-css-border-radius="{{el.elType == 'text'?(el.elBorderradius+'em'):''}}"
@@ -20,7 +19,9 @@
                     ms-css-border-radius="{{el.elType == 'img'?(el.elBorderradius+'em'):''}}"
                     ms-css-width="el.elType == 'img'?(el.elWidth+'em'):''"
                     ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
-                    <span ms-if="el.elType == 'text'?true:false">{{el.elContent}}</span>
+                    <span ms-css-color="el.elColor"
+                    ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
+                    ms-if="el.elType == 'text'?true:false">{{el.elContent}}</span>
                 </div>
             </div>
         </div>
@@ -37,6 +38,15 @@
                             </select>
                             </label>
                         </small>
+                <!-- <button ms-click="test">test</button> -->
+                <small class="pull-left">
+                            <label class="pull-left" style="margin-right: 10px;">
+                            页码排序:
+                            <select ms-duplex="pgIndex">
+                                <option ms-repeat="pgNum" ms-attr-value = "el.num" >{{el.name}}</option>
+                            </select>
+                            </label>
+                        </small>
                   <!-- 删除页面元素 -->
                 <small class="pull-right">
                 <label  style="margin-right: 10px;">
@@ -48,8 +58,10 @@
                             <label class="pull-left" style="margin-right: 10px;">
                             创建页面元素:
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"><span class="glyphicon  glyphicon-picture" aria-hidden="true"></span></button>
-                                <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-font" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"
+                                ms-click="newLayout('img')"><span class="glyphicon  glyphicon-picture" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"
+                                ms-click="newLayout('text')"><span class="glyphicon glyphicon-font" aria-hidden="true"></span></button>
                             </div>
                             </label>
                         </small>

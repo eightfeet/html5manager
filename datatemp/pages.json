@@ -4,7 +4,7 @@
         "pgAnimate": "1111",
         "pgBackgroundcolor": "#fff",
         "pgBackgroundimage": "../images/bg.jpg",
-        "pgIndex": "3",
+        "pgIndex": "0",
         "pgEle": [{
             "elName": "元素1",
             "elType": "img",
@@ -17,13 +17,47 @@
             "elHeight": "",
             "elBorderradius": "3",
             "elLeft": "0",
-            "elRight": "200",
             "elTop": "0",
-            "elBottom": "200",
+            "elPadding": "3",
+            "elAlign": "center",
             "elAnimentin": "111111",
             "elAnimentout": "balanceOut",
-            "elAnimentdelaytime": "3s"
+            "elAnimentdelaytime": "3s",
+            "elActive" : false
+        },{
+            "elName": "元素1",
+            "elType": "text",
+            "elContent": "标题",
+            "elBackgroundcolor": "",
+            "elColor": "#f00",
+           "elZindex": "1",
+            "elSize": "1.2",
+            "elWidth": "5",
+            "elHeight": "",
+            "elBorderradius": "3",
+            "elLeft": "0",
+            "elTop": "0",
+            "elPadding": "3",
+            "elAlign": "center",
+            "elAnimentin": "111111",
+            "elAnimentout": "balanceOut",
+            "elAnimentdelaytime": "3s",
+            "elActive" : false
         }]
+    },{
+        "pgName": "page2",
+        "pgAnimate": "1111",
+        "pgBackgroundcolor": "#fff",
+        "pgBackgroundimage": "../images/bg.jpg",
+        "pgIndex": "1",
+        "pgEle": []
+    },{
+        "pgName": "page3",
+        "pgAnimate": "1111",
+        "pgBackgroundcolor": "#fff",
+        "pgBackgroundimage": "../images/bg.jpg",
+        "pgIndex": "2",
+        "pgEle": []
     }],
     "errorMsg": "数据请求失败",
     "status": "0"

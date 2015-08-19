@@ -151,8 +151,12 @@ button, input, select, textarea{
 }
 
 
-.viewbox{font-size:10px;}
+.viewbox{font-size:10px; }
 
 .viewbox .page{width:100%; height:100%; overflow: hidden; position: relative;  }
 
 .viewobj{position: absolute; display: inline-block; text-align: center;}
+
+.viewobj span{font-family: Arial, "Microsoft YaHei", Helvetica, sans-serif;}
+
+.eleZindex{padding: 0 !important; height: auto !important; text-align: center;}

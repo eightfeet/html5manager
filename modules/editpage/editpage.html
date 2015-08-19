@@ -5,20 +5,26 @@
             <span class="glyphicon " ms-class="{{el.elType=='img'?'glyphicon-picture':'glyphicon-text-background'}}" aria-hidden="true"></span> {{el.elName}}
             <small class="pull-right">
                 <label  style="margin-right: 10px;">
-                <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-default btn-xs" aria-label="Center Align" ms-click="deleteLayout($index,el)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                 </label>
             </small>
             <small class="pull-right">
-            <label  style="margin-right: 10px;">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align"><span class="glyphicon  glyphicon-circle-arrow-up" aria-hidden="true"></span></button>
-                    <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></button>
-                </div>
-            </label>
-        </small>
+                <label  style="margin-right: 10px;">
+                <button type="button" class="btn btn-default btn-xs" aria-label="Center Align"><span class="glyphicon "
+                ms-class="{{(el.elActive)?'glyphicon-minus-sign':'glyphicon-plus-sign'}}"
+                ms-click ="elActiveevent($event,el)"
+                aria-hidden="true"></span></button>
+                </label>
+            </small>
+            <small class="pull-right">
+                <label class="pull-left" style="margin-right: 10px;">
+                元素层级:
+                <input class=" input-sm propw  eleZindex" type="number" placeholder="em" ms-duplex = "el.elZindex" step="1" min="1">
+                </label>
+            </small>
         </div>
         <!-- block -->
-        <div class="chart-stage">
+        <div class="chart-stage" ms-visible="el.elActive">
             <div id="chart-05">
                 <!-- 判断是否是图片 -->
                 <div class="row" ms-if="el.elType=='img'?true:false">
@@ -44,6 +50,7 @@
                         背景颜色:
                         <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"
                         ms-css-background="el.elBackgroundcolor" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        <input type="hidden"  ms-duplex = "el.elBackgroundcolor">
                         </label>
                     </small>
                     <div class="clearfix">
@@ -51,40 +58,41 @@
                         <label class="pull-left" style="margin-right: 10px;">
                         字体颜色:
                         <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"
-                        ms-css-color="el.elColor" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        ms-css-background="el.elColor" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                        <input type="hidden"  ms-duplex = "el.elColor">
                         </label>
                     </small>
                     <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
                         大小:
-                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elSize">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elSize" min="1">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         宽度:
-                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elWidth">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elWidth" min="1">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         高度:
-                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elHeight">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elHeight" min="1">
                         </label>
                     </small>
                     <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         圆角:
-                        <input class=" input-sm propw" type="number" placeholder="0em" ms-duplex = "el.elBorderradius">
+                        <input class=" input-sm propw" type="number" placeholder="0em" ms-duplex = "el.elBorderradius" min="0">
                         </label>
                     </small>
                     </div>
                     <hr>
                     <div class="clearfix">
-                        <small class="pull-left" ms-if="!picOrtext">
+                        <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         内边距:
-                        <input class=" input-sm propw" type="number" placeholder="em">
+                        <input class=" input-sm propw" type="number" placeholder="em" ms-duplex = "el.elPadding" min="0">
                         </label>
                     </small>
                     <small class="pull-left">
@@ -95,20 +103,18 @@
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
-                        右边距:
-                        <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elRight">
-                        </label>
-                    </small>
-                        <small class="pull-left">
-                        <label class="pull-left" style="margin-right: 10px;">
                         上边距:
                         <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elTop">
                         </label>
                     </small>
-                        <small class="pull-left">
+                        <small class="pull-left"  ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
-                        下边距:
-                        <input class=" input-sm propw" type="number" placeholder="em"  ms-duplex = "el.elBottom">
+                        对齐方式:
+                        <select class="input-sm" ms-duplex = "el.elAlign">
+                            <option selected>left</option>
+                            <option >center</option>
+                            <option >right</option>
+                        </select>
                         </label>
                     </small>
                     </div>

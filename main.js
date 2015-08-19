@@ -145,6 +145,8 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
 
         //创建单个页面
         newpage: function() {
+            //新增页面时也要保存当前页面数据
+            dataSave(msroot.selecttab);
             //默认命名为“page1，page2...”，暂时不允许修改页面名
             //当页面被删除是会有重名现象需要解决，暂时放一放
             dataNew(msroot.pages.length);

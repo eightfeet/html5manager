@@ -1,4 +1,7 @@
 require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload'], function(avalon, css, domReady, upload) {
+            var rootMd = avalon.vmodels.root,
+    addpageMd = avalon.vmodels.addpage,
+    editpageMd = avalon.vmodels.editpage;
 
     //数据请求方法
     var dataRequire = function(url,type,dataarg,callback) {
@@ -15,36 +18,61 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
     };
 
     //删除页面方法
-    var delPage = function(){
+    var delPage = function(page){
         var rootMd = avalon.vmodels.root,
-            addpageMd = avalon.vmodels.addpage,
-            editpageMd = avalon.vmodels.editpage;
-            rootMd.pages.removeAt(rootMd.selecttab);
+    addpageMd = avalon.vmodels.addpage,
+    editpageMd = avalon.vmodels.editpage;
+            rootMd.pages.removeAt(page);
     };
 
-    //数据回填
+    //保存当前单页面数据
+    var dataSave = function(page) {
+        var rootMd = avalon.vmodels.root,
+    addpageMd = avalon.vmodels.addpage,
+    editpageMd = avalon.vmodels.editpage;
+        //离开时当前页面信息
+        var pageTemp = {
+            "pgName": addpageMd.pgName,
+            "pgAnimate": addpageMd.pgAnimate,
+            "pgBackgroundcolor": addpageMd.pgBackgroundcolor,
+            "pgBackgroundimage": addpageMd.pgBackgroundimage,
+            "pgIndex": addpageMd.pgIndex,
+            "pgEle": editpageMd.pgEle
+        };
+
+        //rootMd.pages[page] = {};
+        //rootMd.pages[page] = pageTemp;
+        rootMd.pages.set(page, pageTemp);
+    };
+
+        //每个单页面的数据回填
     var dataFill = function(page) {
         var rootMd = avalon.vmodels.root,
             addpageMd = avalon.vmodels.addpage,
             editpageMd = avalon.vmodels.editpage;
 
-        //当前页面全局信息
-        addpageMd.pgName = rootMd.pages[page].pgName;
-        addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
-        addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
-        addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
-        addpageMd.pgIndex = page;
+             //当前页面全局信息
+            addpageMd.pgName = rootMd.pages[page].pgName;
+            addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
+            addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
+            addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
+            addpageMd.pgIndex = page;
+            editpageMd.layoutInfo.clear();
+            editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+            addpageMd.elementInfo.clear();
+            addpageMd.elementInfo = rootMd.pages[page].pgEle;
 
-        //当前页面元素信息
-        editpageMd.layoutInfo.clear();
-        addpageMd.elementInfo.clear();
-        addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
-        editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
+            //当前页面元素信息
+            //editpageMd.layoutInfo.clear();
+            //addpageMd.elementInfo.clear();
     };
+
 
     //创建页面
     var dataNew = function(page) {
-        var rootMd = avalon.vmodels.root;
+        var rootMd = avalon.vmodels.root,
+    addpageMd = avalon.vmodels.addpage,
+    editpageMd = avalon.vmodels.editpage;
         var dataTemp = {
             "pgName": 'page' + (page + 1),
             "pgAnimate": '',
@@ -54,6 +82,37 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
             "pgEle": []
         };
         rootMd.pages.push(dataTemp);
+    };
+
+    //创建图层元素,type代表图层是图片还是文字类型
+    var newLayout =function(type){
+        var rootMd = avalon.vmodels.root,
+    addpageMd = avalon.vmodels.addpage,
+    editpageMd = avalon.vmodels.editpage;
+        var dataTemp = {
+            "elName": "未标题",
+            "elType": type,
+            "elContent": "未定义",
+            "elBackgroundcolor": "",
+            "elColor": "",
+           "elZindex": "",
+            "elSize": "",
+            "elWidth": "",
+            "elHeight": "",
+            "elBorderradius": "",
+            "elLeft": "",
+            "elTop": "",
+            "elPadding": "",
+            "elAlign": "center",
+            "elAnimentin": "",
+            "elAnimentout": "",
+            "elAnimentdelaytime": "",
+            "elActive" : true
+        };
+        avalon.log(addpageMd.elementInfo);
+        addpageMd.elementInfo.unshift(dataTemp);
+        editpageMd.layoutInfo.unshift(dataTemp);
+        rootMd.pages[rootMd.selecttab].pgEle.unshift(dataTemp);
     };
 
     //上传图片
@@ -81,21 +140,32 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         //vm显示视图监控数据（页面元素）
         elementInfo: [],
 
-
         //删除页面
         deletePage: function(){
             if(avalon.vmodels.root.pages.length>1){
                 //删除一个页面
-                delPage();
-                //重新回填一个页面，这里设为第一页
-                dataFill(0);
+                delPage(rootMd.selecttab);
                 //设置tab
-                avalon.vmodels.root.selecttab=0;
+                rootMd.selecttab=avalon.vmodels.root.pages.length-1;
+                //重新回填一个页面，这里设为第一页
+                dataFill(avalon.vmodels.root.pages.length-1);
             }else{
                 alert('至少保留一个页面！');
             }
+        },
 
-        }
+        //创建一个图层元素
+        newLayout: function(type){
+            //创建图层
+            newLayout(type);
+            //保存到pages
+            dataSave(avalon.vmodels.root.selecttab);
+            //数据回填
+            dataFill(avalon.vmodels.root.selecttab);
+        },
+
+        //页码长度
+        pgNum : []
 
     });
     avalon.scan();
