@@ -1,6 +1,6 @@
 {
     "body": [{
-        "pgName": "page1",
+        "pgName": "第1页",
         "pgAnimate": "1111",
         "pgBackgroundcolor": "#fff",
         "pgBackgroundimage": "../images/bg.jpg",

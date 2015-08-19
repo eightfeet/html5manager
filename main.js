@@ -107,7 +107,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
     var dataNew = function(page) {
         var rootMd = avalon.vmodels.root;
         var dataTemp = {
-            "pgName": 'page' + (page + 1),
+            "pgName": '第' + (page + 1)+'页',
             "pgAnimate": '',
             "pgBackgroundcolor": '',
             "pgBackgroundimage": '',
@@ -115,6 +115,13 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
             "pgEle": []
         };
         rootMd.pages.push(dataTemp);
+    };
+
+    //页码数
+    var getPagenum = function(){
+        for (var i=0,l = avalon.vmodels.root.pages.length; i < l; i++) {
+            avalon.vmodels.addpage.pgNum.push({"num":i,"name":"第"+(i+1)+"页"});
+        }
     };
 
     var msroot = avalon.define({
@@ -153,6 +160,10 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
 
             //把当前选择索引值放到最新创建的页面上
             msroot.selecttab = msroot.pages.length - 1; //index从0开始，
+            //清除旧页码
+            avalon.vmodels.addpage.pgNum.clear();
+            //生成页码
+            getPagenum();
             //重新填充新页面数据
             dataFill(msroot.selecttab);
         },

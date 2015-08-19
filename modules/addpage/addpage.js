@@ -1,10 +1,10 @@
 require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload'], function(avalon, css, domReady, upload) {
-            var rootMd = avalon.vmodels.root,
-    addpageMd = avalon.vmodels.addpage,
-    editpageMd = avalon.vmodels.editpage;
+    var rootMd = avalon.vmodels.root,
+        addpageMd = avalon.vmodels.addpage,
+        editpageMd = avalon.vmodels.editpage;
 
     //数据请求方法
-    var dataRequire = function(url,type,dataarg,callback) {
+    var dataRequire = function(url, type, dataarg, callback) {
         $.ajax({
             url: url,
             type: type,
@@ -18,18 +18,18 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
     };
 
     //删除页面方法
-    var delPage = function(page){
+    var delPage = function(page) {
         var rootMd = avalon.vmodels.root,
-    addpageMd = avalon.vmodels.addpage,
-    editpageMd = avalon.vmodels.editpage;
-            rootMd.pages.removeAt(page);
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+        rootMd.pages.removeAt(page);
     };
 
     //保存当前单页面数据
     var dataSave = function(page) {
         var rootMd = avalon.vmodels.root,
-    addpageMd = avalon.vmodels.addpage,
-    editpageMd = avalon.vmodels.editpage;
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
         //离开时当前页面信息
         var pageTemp = {
             "pgName": addpageMd.pgName,
@@ -45,34 +45,34 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         rootMd.pages.set(page, pageTemp);
     };
 
-        //每个单页面的数据回填
+    //每个单页面的数据回填
     var dataFill = function(page) {
         var rootMd = avalon.vmodels.root,
             addpageMd = avalon.vmodels.addpage,
             editpageMd = avalon.vmodels.editpage;
 
-             //当前页面全局信息
-            addpageMd.pgName = rootMd.pages[page].pgName;
-            addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
-            addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
-            addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
-            addpageMd.pgIndex = page;
-            editpageMd.layoutInfo.clear();
-            editpageMd.layoutInfo = rootMd.pages[page].pgEle;
-            addpageMd.elementInfo.clear();
-            addpageMd.elementInfo = rootMd.pages[page].pgEle;
+        //当前页面全局信息
+        addpageMd.pgName = rootMd.pages[page].pgName;
+        addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
+        addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
+        addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
+        addpageMd.pgIndex = page;
+        editpageMd.layoutInfo.clear();
+        editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+        addpageMd.elementInfo.clear();
+        addpageMd.elementInfo = rootMd.pages[page].pgEle;
 
-            //当前页面元素信息
-            //editpageMd.layoutInfo.clear();
-            //addpageMd.elementInfo.clear();
+        //当前页面元素信息
+        //editpageMd.layoutInfo.clear();
+        //addpageMd.elementInfo.clear();
     };
 
 
     //创建页面
     var dataNew = function(page) {
         var rootMd = avalon.vmodels.root,
-    addpageMd = avalon.vmodels.addpage,
-    editpageMd = avalon.vmodels.editpage;
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
         var dataTemp = {
             "pgName": 'page' + (page + 1),
             "pgAnimate": '',
@@ -85,17 +85,17 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
     };
 
     //创建图层元素,type代表图层是图片还是文字类型
-    var newLayout =function(type){
+    var newLayout = function(type) {
         var rootMd = avalon.vmodels.root,
-    addpageMd = avalon.vmodels.addpage,
-    editpageMd = avalon.vmodels.editpage;
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
         var dataTemp = {
             "elName": "未标题",
             "elType": type,
             "elContent": "未定义",
             "elBackgroundcolor": "",
             "elColor": "",
-           "elZindex": "",
+            "elZindex": "",
             "elSize": "",
             "elWidth": "",
             "elHeight": "",
@@ -107,7 +107,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
             "elAnimentin": "",
             "elAnimentout": "",
             "elAnimentdelaytime": "",
-            "elActive" : true
+            "elActive": true
         };
         avalon.log(addpageMd.elementInfo);
         addpageMd.elementInfo.unshift(dataTemp);
@@ -141,21 +141,21 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         elementInfo: [],
 
         //删除页面
-        deletePage: function(){
-            if(avalon.vmodels.root.pages.length>1){
+        deletePage: function() {
+            if (avalon.vmodels.root.pages.length > 1) {
                 //删除一个页面
                 delPage(rootMd.selecttab);
                 //设置tab
-                rootMd.selecttab=avalon.vmodels.root.pages.length-1;
+                rootMd.selecttab = avalon.vmodels.root.pages.length - 1;
                 //重新回填一个页面，这里设为第一页
-                dataFill(avalon.vmodels.root.pages.length-1);
-            }else{
+                dataFill(avalon.vmodels.root.pages.length - 1);
+            } else {
                 alert('至少保留一个页面！');
             }
         },
 
         //创建一个图层元素
-        newLayout: function(type){
+        newLayout: function(type) {
             //创建图层
             newLayout(type);
             //保存到pages
@@ -165,20 +165,47 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         },
 
         //页码长度
-        pgNum : []
+        pgNum: [],
+
+
 
     });
     avalon.scan();
 
+    msaddpage.$watch("pgIndex", function(value, oldValue) {
+        var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+
+        //这里深度拷贝一份当前页面存档
+        var tempPage = {};
+        avalon.mix(true, tempPage, rootMd.pages[oldValue]);
+
+        /*//删除当前页面
+        if (String(oldValue).length > 0) {
+            rootMd.pages.removeAt(oldValue);
+
+            //新位置插入数据
+            rootMd.pages.splice(value, 0, tempPage);
+
+            //保存当前页面信息
+            dataSave(value);
+
+            //重新回填
+            dataFill(value);
+        }*/
+
+    });
+
     //请求数据对页面下拉选择转场动画初始化
     //这里按接口方便以后后台
-    dataRequire ('datatemp/animates.json',
-        'Post',{},
-        function(data){
+    dataRequire('datatemp/animates.json',
+        'Post', {},
+        function(data) {
             avalon.log("data ready!");
             //数据填充到动画
             avalon.vmodels.addpage.pgAnimates.pushArray(data.body);
-    });
+        });
 
     //填充页面全局信息数据
 
