@@ -2,7 +2,8 @@
     <div class="chart-wrapper" ms-repeat="layoutInfo" data-repeat-rendered="repeatReady">
         <div class="chart-title clearfix">
             <!-- 这里判断是文字模块还是图片模块 -->
-            <span class="glyphicon " ms-class="{{el.elType=='img'?'glyphicon-picture':'glyphicon-text-background'}}" aria-hidden="true"></span> {{el.elName}}
+            <span class="glyphicon " ms-class="{{el.elType=='img'?'glyphicon-picture':'glyphicon-text-background'}}" aria-hidden="true"></span>
+            {{el.elType=='img'?'图片':el.elContent.substring(0,6)}}
             <small class="pull-right">
                 <label  style="margin-right: 10px;">
                 <button type="button" class="btn btn-default btn-xs" aria-label="Center Align" ms-click="deleteLayout($index,el)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>

@@ -165,8 +165,9 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
             //生成页码
             getPagenum();
             //重新填充新页面数据
-            $('#changerpage').val($index);
+            $('#changerpage').val(msroot.pages.length);
             dataFill(msroot.selecttab);
+            $('#changerpage').val(msroot.selecttab);
         },
 
         //页面点击时需要做以下事情
