@@ -2,7 +2,7 @@
     "body": [{
         "pgName": "第1页",
         "pgAnimate": "1111",
-        "pgBackgroundcolor": "#fff",
+        "pgBackgroundcolor": "#555",
         "pgBackgroundimage": "../images/bg.jpg",
         "pgIndex": "0",
         "pgEle": [{
@@ -46,14 +46,14 @@
         }]
     },{
         "pgName": "page2",
-        "pgAnimate": "1111",
+        "pgAnimate": "2222",
         "pgBackgroundcolor": "#fff",
         "pgBackgroundimage": "../images/bg.jpg",
         "pgIndex": "1",
         "pgEle": []
     },{
         "pgName": "page3",
-        "pgAnimate": "1111",
+        "pgAnimate": "3333",
         "pgBackgroundcolor": "#fff",
         "pgBackgroundimage": "../images/bg.jpg",
         "pgIndex": "2",

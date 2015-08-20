@@ -16,12 +16,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
 
     //页码数
     var getPagenum = function(){
-        var rootMd = avalon.vmodels.root,
-            addpageMd = avalon.vmodels.addpage,
-            editpageMd = avalon.vmodels.editpage;
-        //根据pages的索引值生成新页码
-        for (var i=0,l = rootMd.pages.length; i < l; i++) {
-            rootMd.pages[i].pgName="第"+(i+1)+"页";
+        for (var i=0,l = avalon.vmodels.root.pages.length; i < l; i++) {
             avalon.vmodels.addpage.pgNum.push({"num":i,"name":"第"+(i+1)+"页"});
         }
     };

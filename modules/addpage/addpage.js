@@ -115,6 +115,18 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         rootMd.pages[rootMd.selecttab].pgEle.unshift(dataTemp);
     };
 
+        //页码数
+    var getPagenum = function(){
+        var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+        //根据pages的索引值生成新页码
+        for (var i=0,l = rootMd.pages.length; i < l; i++) {
+            rootMd.pages[i].pgName="第"+(i+1)+"页";
+            avalon.vmodels.addpage.pgNum.push({"num":i,"name":"第"+(i+1)+"页"});
+        }
+    };
+
     //上传图片
     upload.initUpload({
         "uploadBtn": "#bgUpload",
@@ -122,6 +134,18 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
             console.log('上传失败！');
         }
     });
+
+    //
+    Object.prototype.toString = function() {
+        var str = '';
+        for (var item in this) {
+            str += item + ":" + this[item] + ",";
+        }
+        return str.length ? str.substr(0, str.length - 1) : str;
+    };
+
+
+
 
 
     var msaddpage = avalon.define({
@@ -167,35 +191,89 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         //页码长度
         pgNum: [],
 
-
-
     });
-    avalon.scan();
 
-    msaddpage.$watch("pgIndex", function(value, oldValue) {
+
+   /*msaddpage.$watch("pgIndex", function(value, oldValue) {
         var rootMd = avalon.vmodels.root,
             addpageMd = avalon.vmodels.addpage,
-            editpageMd = avalon.vmodels.editpage;
+            editpageMd = avalon.vmodels.editpage,
+        value = String(value);
+        oldValue = String(oldValue);
+        //avalon.log();
 
-        //这里深度拷贝一份当前页面存档
-        var tempPage = {};
-        avalon.mix(true, tempPage, rootMd.pages[oldValue]);
+        if (oldValue.length > 0) {
+            avalon.log('yes');
+            rootMd.pages[parseInt(oldValue)].pgIndex = value;
+            //rootMd.pages[parseInt(oldValue)].pgName = '第'+(parseInt(oldValue)+1)+'页';
 
-        /*//删除当前页面
-        if (String(oldValue).length > 0) {
-            rootMd.pages.removeAt(oldValue);
+            rootMd.pages[parseInt(value)].pgIndex = oldValue;
+            //rootMd.pages[parseInt(value)].pgName =  '第'+(parseInt(value)+1)+'页';
 
-            //新位置插入数据
-            rootMd.pages.splice(value, 0, tempPage);
+            //对pages进行排序
+            rootMd.pages.sort(function(a, b) {
+                return a.pgIndex - b.pgIndex;
+            });
 
             //保存当前页面信息
             dataSave(value);
 
+            dataSave(oldValue);
+
             //重新回填
             dataFill(value);
-        }*/
+
+            //设置索引值
+            rootMd.selecttab = value;
+
+        }
+
+
+    });*/
+
+    avalon.scan();
+
+$(document).ready(function(){
+    var oldValue = null,value = null;
+
+    $('#changerpage').click(function(){
+        oldValue=$(this).val();
+        dataSave(oldValue);
+    }).change(function(){
+        value=$(this).val();
+
+        var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+
+        rootMd.pages[parseInt(oldValue)].pgIndex = value;
+            //rootMd.pages[parseInt(oldValue)].pgName = '第'+(parseInt(oldValue)+1)+'页';
+
+            rootMd.pages[parseInt(value)].pgIndex = oldValue;
+            //rootMd.pages[parseInt(value)].pgName =  '第'+(parseInt(value)+1)+'页';
+
+            //对pages进行排序
+            rootMd.pages.sort(function(a, b) {
+                return a.pgIndex - b.pgIndex;
+            });
+
+            //保存当前页面信息
+            dataSave(value);
+
+
+
+            //重新回填
+            dataFill(value);
+
+            //设置索引值
+            rootMd.selecttab = value;
 
     });
+});
+
+
+
+    avalon.log('11111111111'+jQuery);
 
     //请求数据对页面下拉选择转场动画初始化
     //这里按接口方便以后后台

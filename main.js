@@ -165,6 +165,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
             //生成页码
             getPagenum();
             //重新填充新页面数据
+            $('#changerpage').val($index);
             dataFill(msroot.selecttab);
         },
 
@@ -174,6 +175,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, 
         //设置当前页的索引值
         msSelected: function($event, $index, el) {
             dataSave(msroot.selecttab);
+            $('#changerpage').val($index);
             dataFill($index);
             msroot.selecttab = $index;
         }
