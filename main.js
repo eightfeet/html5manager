@@ -41,7 +41,7 @@ require.config({ //第一块，配置
     }
 });
 
-require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], function(avalon, domready, bs, css, $,parallax) {
+require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], function(avalon, domready, bs, css, $,animShow) {
 
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
 
@@ -169,6 +169,8 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
             $('#changerpage').val(msroot.pages.length);
             dataFill(msroot.selecttab);
             $('#changerpage').val(msroot.selecttab);
+
+            animShow();
         },
 
         //页面点击时需要做以下事情
@@ -180,6 +182,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
             $('#changerpage').val($index);
             dataFill($index);
             msroot.selecttab = $index;
+            animShow();
         }
 
     });

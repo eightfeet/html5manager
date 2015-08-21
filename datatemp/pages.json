@@ -22,7 +22,9 @@
             "elAlign": "center",
             "elAnimentin": "slideToTop",
             "elAnimentout": "balanceOut",
-            "elAnimentdelaytime": "3s",
+            "elAnimentcount":"1",
+            "elAnimentdelaytime": "500",
+            "el.elAnimenttime": "500",
             "elActive" : false
         },{
             "elName": "元素1",
@@ -41,7 +43,8 @@
             "elAlign": "center",
             "elAnimentin": "111111",
             "elAnimentout": "balanceOut",
-            "elAnimentdelaytime": "3s",
+            "elAnimentcount":"1",
+            "elAnimentdelaytime": "1000",
             "elActive" : false
         }]
     },{

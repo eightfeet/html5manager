@@ -6,6 +6,8 @@
                     <div class="viewobj"
                         ms-attr-set-animation="el.elAnimentin"
                         ms-attr-set-delay="el.elAnimentdelaytime"
+                        ms-attr-set-count="el.elAnimentcount"
+                        ms-attr-set-duration="el.elAnimenttime"
                         ms-repeat="elementInfo"
                         ms-css-background-color="el.elBackgroundcolor"
                         ms-css-z-index="el.elZindex"
@@ -58,8 +60,16 @@
                 <button type="button" class="btn btn-default btn-xs" aria-label="Center Align" ms-click="deletePage"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                 </label>
             </small>
+                <!-- 设置页面背景颜色 -->
+                <small class="pull-left">
+                            <label class="pull-left" style="margin-right: 10px;">
+                            背景颜色:
+                            <button type="button" class="btn btn-default btn-xs selectcolor" ms-css-background-color="pgBackgroundcolor" aria-label="Center Align"   value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
+                            <input type="hidden" name="" value="" placeholder="" ms-duplex = "pgBackgroundcolor">
+                            </label>
+                        </small>
                 <!-- 创建页面元素 -->
-                <small class="pull-right">
+                <small class="pull-left">
                             <label class="pull-left" style="margin-right: 10px;">
                             创建页面元素:
                             <div class="btn-group">
@@ -70,16 +80,8 @@
                             </div>
                             </label>
                         </small>
-                <!-- 设置页面背景颜色 -->
-                <small class="pull-right">
-                            <label class="pull-left" style="margin-right: 10px;">
-                            背景颜色:
-                            <button type="button" class="btn btn-default btn-xs selectcolor" ms-css-background-color="pgBackgroundcolor" aria-label="Center Align"   value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
-                            <input type="hidden" name="" value="" placeholder="" ms-duplex = "pgBackgroundcolor">
-                            </label>
-                        </small>
                 <!-- 设置页面背景图片 -->
-                <small class="pull-right">
+                <small class="pull-left">
                             <label class="pull-left" style="margin-right: 10px;">
                             背景图片
                             <div id="bgUpload"  style="display: inline-block;"><span>上传</span></div>

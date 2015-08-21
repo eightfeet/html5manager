@@ -15,7 +15,8 @@ define(["jquery"], function($) {
                 $animation = $element.attr('set-animation'),
                 $duration = $element.attr('set-duration') || 500,
                 $timfunc = $element.attr('set-timing-function') || 'ease',
-                $delay = $element.attr('set-delay') ? $element.attr('set-delay') : 0;
+                $delay = $element.attr('set-delay') ? $element.attr('set-delay') : 0,
+                $count = $element.attr('set-count') ? $element.attr('set-count') : 1;
 
             $element.css({
                 //              '-webkit-animation': $animation +' '+ $duration + 'ms ' + $timfunc + ' '+ $delay + 'ms both',
@@ -29,7 +30,8 @@ define(["jquery"], function($) {
                 '-webkit-animation-timing-function': 'ease',
                 '-webkit-animation-timing-function': $timfunc,
                 '-webkit-animation-delay': $delay + 'ms',
-                '-webkit-animation-fill-mode': 'both'
+                '-webkit-animation-fill-mode': 'both',
+                '-webkit-animation-iteration-count':$count
             })
         });
     }

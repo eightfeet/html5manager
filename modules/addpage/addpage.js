@@ -107,7 +107,9 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             "elAlign": "center",
             "elAnimentin": "",
             "elAnimentout": "",
+            "elAnimentcount":"1",
             "elAnimentdelaytime": "",
+            "el.elAnimenttime": "",
             "elActive": true
         };
         avalon.log(addpageMd.elementInfo);

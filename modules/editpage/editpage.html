@@ -128,27 +128,39 @@
                         <select class="input-sm changeAnimate" ms-duplex ="el.elAnimentin">
                             <option selected>slideToBottom</option>
                             <option>slideToTop</option>
-                            <option >slideToRight</option>
+                            <option>slideToBottom</option>
                             <option>slideToLeft</option>
+                            <option>slideToRight</option>
+                            <option>fadeInToTop</option>
+                            <option>fadeInToBottom</option>
+                            <option>fadeInToLeft</option>
+                            <option>fadeInToRight</option>
+                            <option>fadeIn</option>
+                            <option>fadeOut</option>
                             <option>followSlide</option>
+                            <option>followSlideToTop</option>
+                            <option>followSlideToBottom</option>
+                            <option>followSlideToLeft</option>
+                            <option>followSlideToRight</option>
                         </select>
+                        </label>
+                    </small>
+                    <small class="pull-left">
+                        <label class="pull-left" style="margin-right: 10px;">
+                        动画时长:
+                        <input class=" input-sm propw"  type="number" ms-duplex="el.elAnimenttime" placeholder="ms" min="0">
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         延时:
-                        <input class=" input-sm propw" type="text" ms-duplex="el.elAnimentdelaytime" placeholder="s">
+                        <input class=" input-sm propw"  type="number" ms-duplex="el.elAnimentdelaytime" placeholder="ms" min="0">
                         </label>
                     </small>
                     <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
-                        退场动画:
-                        <select class="input-sm changeAnimate">
-                            <option>All blocks</option>
-                            <option>Howard</option>
-                            <option selected>Folsom</option>
-                            <option>Harrison</option>
-                        </select>
+                        循环:
+                        <input class=" input-sm propw"  type="number" ms-duplex="el.elAnimentcount" placeholder="次数" min="0">
                         </label>
                     </small>
                     </div>
