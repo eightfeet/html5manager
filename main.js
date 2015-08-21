@@ -15,7 +15,8 @@ require.config({ //第一块，配置
         zh_cn: 'vendor/ueditor/lang/zh-cn/zh-cn',
         upload: 'vendor/uploader/upload',
         //百度上传
-        uploader: 'vendor/uploader/webuploader'
+        uploader: 'vendor/uploader/webuploader',
+        parallax: 'vendor/parallax/parallax'
     },
     priority: ['text', 'css'],
     shim: {
@@ -40,7 +41,7 @@ require.config({ //第一块，配置
     }
 });
 
-require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery'], function(avalon, domready, bs, css, $) {
+require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], function(avalon, domready, bs, css, $,parallax) {
 
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
 

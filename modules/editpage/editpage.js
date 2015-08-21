@@ -1,4 +1,4 @@
-require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!', 'upload'], function(avalon, css, colpick, dom, upload) {
+require(['avalon', 'css!vendor/uploader/webuploader.css','parallax', 'colpick', 'domReady!', 'upload'], function(avalon, css, animShow, colpick, dom, upload) {
 
     //数据请求方法
     var dataRequire = function(url, type, dataarg, callback) {
@@ -60,6 +60,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
         addpageMd.elementInfo.clear();
         addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
         editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
+
+        animShow();
     };
 
     //删除图层方法
@@ -96,6 +98,12 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
                     $(el).next('input').val('#' + hex);
                 }
             });
+            $('.imgUpload').html('上传图片');
+                 //绑定事件
+            $('.changeAnimate').change(function(){
+            //保存当前页面信息
+                    animShow();
+            });
             //上传图片
             upload.initUpload({
                 "uploadBtn":".imgUpload",
@@ -119,10 +127,16 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
             dataSave(avalon.vmodels.root.selecttab);
             //数据回填
             dataFill(avalon.vmodels.root.selecttab);
+            //切记播放所有动画，否则出现元素被隐藏
+
         }
     });
 
     avalon.scan();
+
+
+
+
 
     //为了保证所有avalon modules完全准备我们选择在此请求页面数据
     dataRequire('datatemp/pages.json',
@@ -158,6 +172,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'colpick', 'domReady!'
             editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
 
             getPagenum();
+
+            animShow();
 
         });
 

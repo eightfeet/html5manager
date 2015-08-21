@@ -20,7 +20,7 @@
             "elTop": "0",
             "elPadding": "3",
             "elAlign": "center",
-            "elAnimentin": "111111",
+            "elAnimentin": "slideToTop",
             "elAnimentout": "balanceOut",
             "elAnimentdelaytime": "3s",
             "elActive" : false

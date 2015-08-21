@@ -30,8 +30,7 @@
                 <!-- 判断是否是图片 -->
                 <div class="row" ms-if="el.elType=='img'?true:false">
                     <div class=" col-sm-9">
-                            <div id="fileList" class="uploader-list"><ul class="list"></ul></div>
-                            <div class="imgUpload">上传图片</div>
+                            <div class="imgUpload"  ms-if="el.elType=='img'?true:false">上传图片</div>
                     </div>
                 </div>
 
@@ -126,24 +125,25 @@
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         入场动画:
-                        <select class="input-sm">
-                            <option>All blocks</option>
-                            <option>Howard</option>
-                            <option selected>Folsom</option>
-                            <option>Harrison</option>
+                        <select class="input-sm changeAnimate" ms-duplex ="el.elAnimentin">
+                            <option selected>slideToBottom</option>
+                            <option>slideToTop</option>
+                            <option >slideToRight</option>
+                            <option>slideToLeft</option>
+                            <option>followSlide</option>
                         </select>
                         </label>
                     </small>
                         <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         延时:
-                        <input class=" input-sm propw" type="text" placeholder="s">
+                        <input class=" input-sm propw" type="text" ms-duplex="el.elAnimentdelaytime" placeholder="s">
                         </label>
                     </small>
                     <small class="pull-left">
                         <label class="pull-left" style="margin-right: 10px;">
                         退场动画:
-                        <select class="input-sm">
+                        <select class="input-sm changeAnimate">
                             <option>All blocks</option>
                             <option>Howard</option>
                             <option selected>Folsom</option>

@@ -1,29 +1,34 @@
 <div ms-controller="addpage"><!-- ms-controller="addpage" -->
     <div class="viewbar">
         <div class="viewbox ">
-            <div class="page" ms-css-background-color="pgBackgroundcolor">
-                <div class="viewobj" ms-repeat="elementInfo"
-                    ms-css-background-color="el.elBackgroundcolor"
-                    ms-css-z-index="el.elZindex"
-                    ms-css-left="{{el.elLeft+'em'}}"
-                    ms-css-padding="{{el.elPadding+'em'}}"
-                    ms-css-top="{{el.elTop+'em'}}"
-                    ms-css-text-align="{{el.elAlign}}"
-                    ms-css-width="el.elType == 'text'?(el.elWidth+'em'):''"
-                    ms-css-height="el.elType == 'text'?(el.elHeight+'em'):''"
-                    ms-css-border-radius="{{el.elType == 'text'?(el.elBorderradius+'em'):''}}"
-                    ms-class="{{el.elAnimentin+' '+el.elAnimentdelaytime}}">
+            <section class="pages" ms-css-background-color="pgBackgroundcolor">
+                <div class="page">
+                    <div class="viewobj"
+                        ms-attr-set-animation="el.elAnimentin"
+                        ms-attr-set-delay="el.elAnimentdelaytime"
+                        ms-repeat="elementInfo"
+                        ms-css-background-color="el.elBackgroundcolor"
+                        ms-css-z-index="el.elZindex"
+                        ms-css-left="{{el.elLeft+'em'}}"
+                        ms-css-padding="{{el.elPadding+'em'}}"
+                        ms-css-top="{{el.elTop+'em'}}"
+                        ms-css-text-align="{{el.elAlign}}"
+                        ms-css-width="el.elType == 'text'?(el.elWidth+'em'):''"
+                        ms-css-height="el.elType == 'text'?(el.elHeight+'em'):''"
+                        ms-css-border-radius="{{el.elType == 'text'?(el.elBorderradius+'em'):''}}"
+                        ms-class="{{el.elAnimentin+' '+el.elAnimentdelaytime}}">
 
-                    <img ms-src="el.elType == 'img'?el.elContent:''" alt=""
-                    ms-if="el.elType == 'img'?true:false"
-                    ms-css-border-radius="{{el.elType == 'img'?(el.elBorderradius+'em'):''}}"
-                    ms-css-width="el.elType == 'img'?(el.elWidth+'em'):''"
-                    ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
-                    <span ms-css-color="el.elColor"
-                    ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
-                    ms-if="el.elType == 'text'?true:false">{{el.elContent}}</span>
+                        <img ms-src="el.elType == 'img'?el.elContent:''" alt=""
+                        ms-if="el.elType == 'img'?true:false"
+                        ms-css-border-radius="{{el.elType == 'img'?(el.elBorderradius+'em'):''}}"
+                        ms-css-width="el.elType == 'img'?(el.elWidth+'em'):''"
+                        ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
+                        <span ms-css-color="el.elColor"
+                        ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
+                        ms-if="el.elType == 'text'?true:false">{{el.elContent}}</span>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
     <div class="setbar">

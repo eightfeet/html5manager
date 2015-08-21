@@ -1,4 +1,4 @@
-require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload'], function(avalon, css, domReady, upload) {
+require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!', 'upload'], function(avalon, css, animShow, domReady, upload) {
     var rootMd = avalon.vmodels.root,
         addpageMd = avalon.vmodels.addpage,
         editpageMd = avalon.vmodels.editpage;
@@ -65,6 +65,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         //当前页面元素信息
         //editpageMd.layoutInfo.clear();
         //addpageMd.elementInfo.clear();
+        animShow();
     };
 
 
@@ -115,15 +116,18 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
         rootMd.pages[rootMd.selecttab].pgEle.unshift(dataTemp);
     };
 
-        //页码数
-    var getPagenum = function(){
+    //页码数
+    var getPagenum = function() {
         var rootMd = avalon.vmodels.root,
             addpageMd = avalon.vmodels.addpage,
             editpageMd = avalon.vmodels.editpage;
         //根据pages的索引值生成新页码
-        for (var i=0,l = rootMd.pages.length; i < l; i++) {
-            rootMd.pages[i].pgName="第"+(i+1)+"页";
-            avalon.vmodels.addpage.pgNum.push({"num":i,"name":"第"+(i+1)+"页"});
+        for (var i = 0, l = rootMd.pages.length; i < l; i++) {
+            rootMd.pages[i].pgName = "第" + (i + 1) + "页";
+            avalon.vmodels.addpage.pgNum.push({
+                "num": i,
+                "name": "第" + (i + 1) + "页"
+            });
         }
     };
 
@@ -173,6 +177,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
                 rootMd.selecttab = avalon.vmodels.root.pages.length - 1;
                 //重新回填一个页面，这里设为第一页
                 dataFill(avalon.vmodels.root.pages.length - 1);
+                //切记播放所有动画，否则出现元素被隐藏
+                animShow();
             } else {
                 alert('至少保留一个页面！');
             }
@@ -186,6 +192,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
             dataSave(avalon.vmodels.root.selecttab);
             //数据回填
             dataFill(avalon.vmodels.root.selecttab);
+            //切记播放所有动画，否则出现元素被隐藏
+            animShow();
         },
 
         //页码长度
@@ -194,86 +202,49 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'domReady!', 'upload']
     });
 
 
-   /*msaddpage.$watch("pgIndex", function(value, oldValue) {
-        var rootMd = avalon.vmodels.root,
-            addpageMd = avalon.vmodels.addpage,
-            editpageMd = avalon.vmodels.editpage,
-        value = String(value);
-        oldValue = String(oldValue);
-        //avalon.log();
 
-        if (oldValue.length > 0) {
-            avalon.log('yes');
-            rootMd.pages[parseInt(oldValue)].pgIndex = value;
-            //rootMd.pages[parseInt(oldValue)].pgName = '第'+(parseInt(oldValue)+1)+'页';
-
-            rootMd.pages[parseInt(value)].pgIndex = oldValue;
-            //rootMd.pages[parseInt(value)].pgName =  '第'+(parseInt(value)+1)+'页';
-
-            //对pages进行排序
-            rootMd.pages.sort(function(a, b) {
-                return a.pgIndex - b.pgIndex;
-            });
-
-            //保存当前页面信息
-            dataSave(value);
-
-            dataSave(oldValue);
-
-            //重新回填
-            dataFill(value);
-
-            //设置索引值
-            rootMd.selecttab = value;
-
-        }
-
-
-    });*/
 
     avalon.scan();
 
-$(document).ready(function(){
-    var oldValue = null,value = null;
+    $(document).ready(function() {
 
-    $('#changerpage').click(function(){
-        oldValue=$(this).val();
-        dataSave(oldValue);
-    }).change(function(){
-        value=$(this).val();
+        //首次运行页面动画
 
-        var rootMd = avalon.vmodels.root,
-            addpageMd = avalon.vmodels.addpage,
-            editpageMd = avalon.vmodels.editpage;
 
-        rootMd.pages[parseInt(oldValue)].pgIndex = value;
+        //调整页面
+        var oldValue = null,
+            value = null;
+
+        $('#changerpage').click(function() {
+            oldValue = $(this).val();
+            dataSave(oldValue);
+        }).change(function() {
+            value = $(this).val();
+
+            var rootMd = avalon.vmodels.root,
+                addpageMd = avalon.vmodels.addpage,
+                editpageMd = avalon.vmodels.editpage;
+
+            rootMd.pages[parseInt(oldValue)].pgIndex = value;
             //rootMd.pages[parseInt(oldValue)].pgName = '第'+(parseInt(oldValue)+1)+'页';
-
             rootMd.pages[parseInt(value)].pgIndex = oldValue;
             //rootMd.pages[parseInt(value)].pgName =  '第'+(parseInt(value)+1)+'页';
-
             //对pages进行排序
             rootMd.pages.sort(function(a, b) {
                 return a.pgIndex - b.pgIndex;
             });
-
             //保存当前页面信息
             dataSave(value);
-
-
-
             //重新回填
             dataFill(value);
-
+            //切记播放所有动画，否则出现元素被隐藏
+            animShow();
             //设置索引值
             rootMd.selecttab = value;
+        });
 
     });
-});
 
-
-
-    avalon.log('11111111111'+jQuery);
 
     //请求数据对页面下拉选择转场动画初始化
     //这里按接口方便以后后台
