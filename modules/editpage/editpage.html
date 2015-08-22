@@ -53,13 +53,22 @@
                         <input type="hidden"  ms-duplex = "el.elBackgroundcolor">
                         </label>
                     </small>
-                    <div class="clearfix">
+                    <small class="pull-left">
+                        <label  style="margin-right: 10px;">
+                        <button type="button" class="btn btn-gray btn-xs" aria-label="Center Align" ms-click="delBgcolor($index,el)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                        </label>
+                    </small>
                         <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label class="pull-left" style="margin-right: 10px;">
                         字体颜色:
                         <button type="button" class="btn btn-default btn-xs selectcolor" aria-label="Center Align"
                         ms-css-background="el.elColor" value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                         <input type="hidden"  ms-duplex = "el.elColor">
+                        </label>
+                    </small>
+                    <small class="pull-left" ms-if="el.elType=='text'?true:false">
+                        <label  style="margin-right: 10px;">
+                        <button type="button" class="btn btn-gray btn-xs" aria-label="Center Align" ms-click="delColor($index,el)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
                         </label>
                     </small>
                     <small class="pull-left" ms-if="el.elType=='text'?true:false">

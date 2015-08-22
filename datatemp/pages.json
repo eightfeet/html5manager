@@ -3,7 +3,7 @@
         "pgName": "第1页",
         "pgAnimate": "1111",
         "pgBackgroundcolor": "#555",
-        "pgBackgroundimage": "../images/bg.jpg",
+        "pgBackgroundimage": "images/exe.png",
         "pgIndex": "0",
         "pgEle": [{
             "elName": "元素1",

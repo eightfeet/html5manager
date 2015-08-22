@@ -1,7 +1,10 @@
 <div ms-controller="addpage"><!-- ms-controller="addpage" -->
     <div class="viewbar">
         <div class="viewbox ">
-            <section class="pages" ms-css-background-color="pgBackgroundcolor">
+            <section class="pages"
+            ms-css-background-color="pgBackgroundcolor"
+            ms-css-background-image="'url('+pgBackgroundimage+')'"
+            >
                 <div class="page">
                     <div class="viewobj"
                         ms-attr-set-animation="el.elAnimentin"
@@ -27,7 +30,7 @@
                         ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
                         <span ms-css-color="el.elColor"
                         ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
-                        ms-if="el.elType == 'text'?true:false">{{el.elContent}}</span>
+                        ms-if="el.elType == 'text'?true:false">{{el.elType == 'text'?el.elContent|html:el.elContent}}</span>
                     </div>
                 </div>
             </section>
@@ -62,12 +65,17 @@
             </small>
                 <!-- 设置页面背景颜色 -->
                 <small class="pull-left">
-                            <label class="pull-left" style="margin-right: 10px;">
+                            <label class="pull-left" >
                             背景颜色:
                             <button type="button" class="btn btn-default btn-xs selectcolor" ms-css-background-color="pgBackgroundcolor" aria-label="Center Align"   value=""><span class="glyphicon colorselect" aria-hidden="true"></span></button>
                             <input type="hidden" name="" value="" placeholder="" ms-duplex = "pgBackgroundcolor">
                             </label>
                         </small>
+                        <small class="pull-left" style="margin-right: 10px;">
+                        <label >
+                        <button type="button" class="btn btn-gray btn-xs" aria-label="Center Align" ms-click="delPgbgcolor"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                        </label>
+                    </small>
                 <!-- 创建页面元素 -->
                 <small class="pull-left">
                             <label class="pull-left" style="margin-right: 10px;">
@@ -82,11 +90,16 @@
                         </small>
                 <!-- 设置页面背景图片 -->
                 <small class="pull-left">
-                            <label class="pull-left" style="margin-right: 10px;">
+                            <label class="pull-left">
                             背景图片
                             <div id="bgUpload"  style="display: inline-block;"><span>上传</span></div>
                             </label>
                         </small>
+                        <small class="pull-left">
+                        <label  style="margin-right: 10px;">
+                        <button type="button" class="btn btn-gray btn-xs" aria-label="Center Align" ms-click="delPgbackgroundimage"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                        </label>
+                    </small>
             </div>
             <hr>
             <div class="chartbox" ms-include-src="editpage">

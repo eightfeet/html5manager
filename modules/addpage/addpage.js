@@ -109,7 +109,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             "elAnimentout": "",
             "elAnimentcount":"1",
             "elAnimentdelaytime": "",
-            "el.elAnimenttime": "",
+            "elAnimenttime": "",
             "elActive": true
         };
         avalon.log(addpageMd.elementInfo);
@@ -169,6 +169,14 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
 
         //vm显示视图监控数据（页面元素）
         elementInfo: [],
+
+        delPgbgcolor:function(){
+            msaddpage.pgBackgroundcolor="";
+        },
+
+        delPgbackgroundimage:function(){
+            msaddpage.pgBackgroundimage="";
+        },
 
         //删除页面
         deletePage: function() {

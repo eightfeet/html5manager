@@ -129,6 +129,12 @@ require(['avalon', 'css!vendor/uploader/webuploader.css','parallax', 'colpick', 
             dataFill(avalon.vmodels.root.selecttab);
             //切记播放所有动画，否则出现元素被隐藏
 
+        },
+        delBgcolor:function($index,el){
+            el.elBackgroundcolor= "";
+        },
+        delColor:function($index,el){
+            el.elColor= "";
         }
     });
 
