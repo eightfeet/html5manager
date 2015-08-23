@@ -17,6 +17,24 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
         });
     };
 
+    //数据存储
+    var saveLocaldata = function(){
+        localStorage.pages='';
+        //创建一个数据
+        var data ={
+            "body":[],
+            "errorMsg": "数据请求失败",
+            "status": "0"
+        };
+        //替换body的数据
+        data.body=avalon.vmodels.root.pages.$model;
+        //然后转换为字符串
+        str = JSON.stringify(data);
+        //存入本地数据库
+        localStorage.pages = str;
+        avalon.log(localStorage.pages);
+    };
+
     //删除页面方法
     var delPage = function(page) {
         var rootMd = avalon.vmodels.root,
@@ -142,13 +160,13 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
     });
 
     //
-    Object.prototype.toString = function() {
+/*    Object.prototype.toString = function() {
         var str = '';
         for (var item in this) {
             str += item + ":" + this[item] + ",";
         }
         return str.length ? str.substr(0, str.length - 1) : str;
-    };
+    };*/
 
 
 
@@ -189,6 +207,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
                 dataFill(avalon.vmodels.root.pages.length - 1);
                 //切记播放所有动画，否则出现元素被隐藏
                 animShow();
+                //存储本地数据
+                saveLocaldata();
             } else {
                 alert('至少保留一个页面！');
             }
@@ -204,10 +224,24 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             dataFill(avalon.vmodels.root.selecttab);
             //切记播放所有动画，否则出现元素被隐藏
             animShow();
+            //存储本地数据
+            saveLocaldata();
         },
 
         //页码长度
         pgNum: [],
+
+        //页面元素被选择的时候
+        selectedElement: function($index,el){
+            avalon.each(avalon.vmodels.editpage.layoutInfo, function(ind, ele) {
+                 if($index==ind){
+                    ele.elActive=true;
+                 }else{
+                    ele.elActive=false;
+                 }
+            });
+
+        }
 
     });
 
@@ -251,11 +285,13 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             animShow();
             //设置索引值
             rootMd.selecttab = value;
+            //存储本地数据
+            saveLocaldata();
         });
 
     });
 
-
+/*
     //请求数据对页面下拉选择转场动画初始化
     //这里按接口方便以后后台
     dataRequire('datatemp/animates.json',
@@ -266,7 +302,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             avalon.vmodels.addpage.pgAnimates.pushArray(data.body);
         });
 
-    //填充页面全局信息数据
+    //填充页面全局信息数据*/
 
 
 });

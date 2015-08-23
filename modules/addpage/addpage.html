@@ -7,6 +7,7 @@
             >
                 <div class="page">
                     <div class="viewobj"
+                        ms-click="selectedElement($index,el)"
                         ms-attr-set-animation="el.elAnimentin"
                         ms-attr-set-delay="el.elAnimentdelaytime"
                         ms-attr-set-count="el.elAnimentcount"
@@ -92,7 +93,10 @@
                 <small class="pull-left">
                             <label class="pull-left">
                             背景图片
-                            <div id="bgUpload"  style="display: inline-block;"><span>上传</span></div>
+                             <!-- 换个思路这里我用本地存储去解决问题 -->
+                          <!-- <div id="bgUpload"  style="display: inline-block;"><span>上传</span></div> -->
+                          <input type="file" name=""  class="fileupload" >
+                          <input type="hidden" name="" value="" ms-duplex="pgBackgroundimage">
                             </label>
                         </small>
                         <small class="pull-left">

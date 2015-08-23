@@ -30,7 +30,9 @@
                 <!-- 判断是否是图片 -->
                 <div class="row" ms-if="el.elType=='img'?true:false">
                     <div class=" col-sm-9">
-                            <div class="imgUpload"  ms-if="el.elType=='img'?true:false">上传图片</div>
+                            <!-- <div class="imgUpload"  ms-if="el.elType=='img'?true:false">上传图片</div> -->
+                            <input type="file" name="" class="fileupload">
+                            <input type="hidden" name="" value="" ms-duplex="el.elContent">
                     </div>
                 </div>
 
@@ -68,7 +70,9 @@
                     </small>
                     <small class="pull-left" ms-if="el.elType=='text'?true:false">
                         <label  style="margin-right: 10px;">
-                        <button type="button" class="btn btn-gray btn-xs" aria-label="Center Align" ms-click="delColor($index,el)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-gray btn-xs" aria-label="Center Align" ms-click="delColor($index,el)">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                        </button>
                         </label>
                     </small>
                     <small class="pull-left" ms-if="el.elType=='text'?true:false">

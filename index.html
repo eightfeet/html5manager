@@ -34,6 +34,42 @@
         <div class="tabcontent clearfix" ms-include-src="addpage" >
         </div>
     </div>
+    <div class="temporary">
+        <div class="pages">
+            <!-- 第一屏 -->
+            <section class="page" ms-repeat="pages"
+                    ms-css-background-color="{{el.pgBackgroundcolor}}"
+                    ms-css-background-image="{{'url('+el.pgBackgroundimage+')'}}">
+                    <div class="viewobj"
+                        ms-repeat="el.pgEle"
+                        ms-click="selectedElement($index,el)"
+                        ms-attr-set-animation="el.elAnimentin"
+                        ms-attr-set-delay="el.elAnimentdelaytime"
+                        ms-attr-set-count="el.elAnimentcount"
+                        ms-attr-set-duration="el.elAnimenttime"
+                        ms-css-background-color="el.elBackgroundcolor"
+                        ms-css-z-index="el.elZindex"
+                        ms-css-left="{{el.elLeft+'em'}}"
+                        ms-css-padding="{{el.elPadding+'em'}}"
+                        ms-css-top="{{el.elTop+'em'}}"
+                        ms-css-text-align="{{el.elAlign}}"
+                        ms-css-width="el.elType == 'text'?(el.elWidth+'em'):''"
+                        ms-css-height="el.elType == 'text'?(el.elHeight+'em'):''"
+                        ms-css-border-radius="{{el.elType == 'text'?(el.elBorderradius+'em'):''}}"
+                        ms-class="{{el.elAnimentin+' '+el.elAnimentdelaytime}}">
+
+                        <img ms-src="el.elType == 'img'?el.elContent:''" alt=""
+                        ms-if="el.elType == 'img'?true:false"
+                        ms-css-border-radius="{{el.elType == 'img'?(el.elBorderradius+'em'):''}}"
+                        ms-css-width="el.elType == 'img'?(el.elWidth+'em'):''"
+                        ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
+                        <span ms-css-color="el.elColor"
+                        ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
+                        ms-if="el.elType == 'text'?true:false">{{el.elType == 'text'?el.elContent|html:el.elContent}}</span>
+                    </div>
+            </section>
+        </div>
+    </div>
     <script src="vendor/require/require.js" data-main="main.js"></script>
 </body>
 

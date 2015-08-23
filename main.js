@@ -41,9 +41,88 @@ require.config({ //第一块，配置
     }
 });
 
-require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], function(avalon, domready, bs, css, $,animShow) {
+require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], function(avalon, domready, bs, css, $, animShow) {
 
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
+    //关联页码
+    //页码数
+    var getPagenum = function() {
+        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
+            avalon.vmodels.addpage.pgNum.push({
+                "num": i,
+                "name": "第" + (i + 1) + "页"
+            });
+        }
+    };
+    //新建场景视图
+    var newStage = function() {
+
+        var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+
+        //清空旧数据
+        localStorage.pages = '';
+        rootMd.pages.clear();
+        data = {
+            "body": [{
+                "pgName": "",
+                "pgAnimate": "",
+                "pgBackgroundcolor": "",
+                "pgBackgroundimage": "",
+                "pgIndex": "0",
+                "pgEle": [{
+                    "elName": "元素1",
+                    "elType": "text",
+                    "elContent": "<a href='#' style='text-shadow:.1em .1em .1em rgba(0, 0, 0, .5) '>hellow,world!</a>",
+                    "elBackgroundcolor": "#d90d25",
+                    "elColor": "#fff",
+                    "elZindex": "1",
+                    "elSize": "2",
+                    "elWidth": "35",
+                    "elHeight": "",
+                    "elBorderradius": "3",
+                    "elLeft": "2",
+                    "elTop": "10",
+                    "elPadding": "2",
+                    "elAlign": "center",
+                    "elAnimentin": "fadeIn",
+                    "elAnimentout": "balanceOut",
+                    "elAnimentcount": "1",
+                    "elAnimentdelaytime": "500",
+                    "el.elAnimenttime": "500",
+                    "elActive": false
+                }]
+            }],
+            "errorMsg": "数据请求失败",
+            "status": "0"
+        };
+        str = JSON.stringify(data);
+
+        //存入本地数据库
+        localStorage.pages = str;
+
+        rootMd.pages.pushArray(data.body);
+        avalon.mix(true, rootMd.$pagesCopy, data.body);
+
+        //当前页面全局信息
+        addpageMd.pgName = rootMd.pages[rootMd.selecttab].pgName;
+        addpageMd.pgAnimate = rootMd.pages[rootMd.selecttab].pgAnimate;
+        addpageMd.pgBackgroundcolor = rootMd.pages[rootMd.selecttab].pgBackgroundcolor;
+        addpageMd.pgBackgroundimage = rootMd.pages[rootMd.selecttab].pgBackgroundimage;
+        addpageMd.pgIndex = rootMd.selecttab;
+
+        //当前页面元素信息
+        //editpageMd.layoutInfo.clear()
+        //这里做两分数据，
+        //一份是为左边视图绑定的，一份是为右边操作绑定的
+        addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
+        editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
+
+        getPagenum();
+
+        animShow();
+    };
 
     //数据请求方法
     var dataRequire = function(url, type, dataarg, callback) {
@@ -59,26 +138,44 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
         });
     };
 
+    //数据存储
+    var saveLocaldata = function() {
+        localStorage.pages = '';
+        //创建一个数据
+        var data = {
+            "body": [],
+            "errorMsg": "数据请求失败",
+            "status": "0"
+        };
+        //替换body的数据
+        data.body = avalon.vmodels.root.pages.$model;
+        //然后转换为字符串
+        str = JSON.stringify(data);
+        //存入本地数据库
+        localStorage.pages = str;
+        avalon.log(localStorage.pages);
+    };
+
     //每个单页面的数据回填
     var dataFill = function(page) {
         var rootMd = avalon.vmodels.root,
             addpageMd = avalon.vmodels.addpage,
             editpageMd = avalon.vmodels.editpage;
 
-             //当前页面全局信息
-            addpageMd.pgName = rootMd.pages[page].pgName;
-            addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
-            addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
-            addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
-            addpageMd.pgIndex = page;
-            editpageMd.layoutInfo.clear();
-            editpageMd.layoutInfo = rootMd.pages[page].pgEle;
-            addpageMd.elementInfo.clear();
-            addpageMd.elementInfo = rootMd.pages[page].pgEle;
+        //当前页面全局信息
+        addpageMd.pgName = rootMd.pages[page].pgName;
+        addpageMd.pgAnimate = rootMd.pages[page].pgAnimate;
+        addpageMd.pgBackgroundcolor = rootMd.pages[page].pgBackgroundcolor;
+        addpageMd.pgBackgroundimage = rootMd.pages[page].pgBackgroundimage;
+        addpageMd.pgIndex = page;
+        editpageMd.layoutInfo.clear();
+        editpageMd.layoutInfo = rootMd.pages[page].pgEle;
+        addpageMd.elementInfo.clear();
+        addpageMd.elementInfo = rootMd.pages[page].pgEle;
 
-            //当前页面元素信息
-            //editpageMd.layoutInfo.clear();
-            //addpageMd.elementInfo.clear();
+        //当前页面元素信息
+        //editpageMd.layoutInfo.clear();
+        //addpageMd.elementInfo.clear();
     };
 
     //离开时保存当前单页面数据
@@ -108,7 +205,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
     var dataNew = function(page) {
         var rootMd = avalon.vmodels.root;
         var dataTemp = {
-            "pgName": '第' + (page + 1)+'页',
+            "pgName": '第' + (page + 1) + '页',
             "pgAnimate": '',
             "pgBackgroundcolor": '',
             "pgBackgroundimage": '',
@@ -119,9 +216,12 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
     };
 
     //页码数
-    var getPagenum = function(){
-        for (var i=0,l = avalon.vmodels.root.pages.length; i < l; i++) {
-            avalon.vmodels.addpage.pgNum.push({"num":i,"name":"第"+(i+1)+"页"});
+    var getPagenum = function() {
+        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
+            avalon.vmodels.addpage.pgNum.push({
+                "num": i,
+                "name": "第" + (i + 1) + "页"
+            });
         }
     };
 
@@ -150,7 +250,9 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
         //当前选择页面，这个很有用以后针对对应页面做操作就是以他为索引
         selecttab: 0,
 
-
+        newstage: function() {
+            newStage();
+        },
         //创建单个页面
         newpage: function() {
             //新增页面时也要保存当前页面数据
@@ -171,6 +273,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
             $('#changerpage').val(msroot.selecttab);
 
             animShow();
+            saveLocaldata();
         },
 
         //页面点击时需要做以下事情
@@ -183,6 +286,15 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery','parallax'], functi
             dataFill($index);
             msroot.selecttab = $index;
             animShow();
+            saveLocaldata();
+        },
+        demoView: function() {
+            avalon.each(msroot.pages,function(index, el) {
+                avalon.log($('.temporary').html());
+            });
+        },
+        stagePublish: function() {
+
         }
 
     });
