@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html ms-controller="root">
 
 <head>
-    <title>H5pagemanager</title>
+    <title>{{webtitle}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <!-- Latest compiled and minified CSS -->
@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body class="application" ms-controller="root">
+<body class="application" >
     <!-- 头部 -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ms-include-src="header">
     </div>
@@ -36,7 +36,6 @@
     </div>
     <div class="temporary">
         <div class="pages">
-            <!-- 第一屏 -->
             <section class="page" ms-repeat="pages"
                     ms-css-background-color="{{el.pgBackgroundcolor}}"
                     ms-css-background-image="{{'url('+el.pgBackgroundimage+')'}}">

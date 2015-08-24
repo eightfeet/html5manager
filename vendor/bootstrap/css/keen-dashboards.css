@@ -180,6 +180,7 @@ width: 100%;height: 100%;
 
 input[type="file"]{display: inline-block;}
 
-.btn-dark{background-color: #5B6773; color:#eee; margin-top:13px;}
+.btn-dark,.btn-dark:visited,.btn-dark:focus{background-color: #5B6773; color:#A7B6C0; margin-top:13px;}
+.btn-dark:hover{background-color: #5B6773; color:#fff; margin-top:13px;}
 
 .temporary{display:none;  }

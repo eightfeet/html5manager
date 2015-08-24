@@ -1,3 +1,13 @@
+/*!
+ * H5master v0.7
+ * author eightfeet
+ * Open source https://github.com/eightfeet/html5manager.git/
+ * Includes avalon，jquery&plugin(colpick)，Bootstrap，parallax，& more...
+ * Copyright 2015 copyright eightfeet
+ * http://eightfeet.github.io/html5master/
+ * http://eightfeet.cn
+ * Date: 2015-08-24
+ */
 require.config({ //第一块，配置
     baseUrl: '',
     paths: {
@@ -43,6 +53,50 @@ require.config({ //第一块，配置
 
 require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], function(avalon, domready, bs, css, $, animShow) {
 
+    //本地文件操作申请
+    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem; //文件系统请求标识
+    window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL || window.webkitResolveLocalFileSystemURL; //根据URL取得文件的读取权限
+
+    //文件操作失败回调
+    var errorHandler = function(e) {
+        var msg = '';
+
+        switch (e.code) {
+            case FileError.QUOTA_EXCEEDED_ERR:
+                msg = 'QUOTA_EXCEEDED_ERR';
+                break;
+            case FileError.NOT_FOUND_ERR:
+                msg = 'NOT_FOUND_ERR';
+                break;
+            case FileError.SECURITY_ERR:
+                msg = 'SECURITY_ERR';
+                break;
+            case FileError.INVALID_MODIFICATION_ERR:
+                msg = 'INVALID_MODIFICATION_ERR';
+                break;
+            case FileError.INVALID_STATE_ERR:
+                msg = 'INVALID_STATE_ERR';
+                break;
+            default:
+                msg = 'Unknown Error';
+                break;
+        }
+
+        console.log('Error: ' + msg);
+    };
+
+    //请求存储配额
+    window.webkitStorageInfo.requestQuota(PERSISTENT, 5 * 1024 * 1024, function(grantedBytes) {
+        window.requestFileSystem(PERSISTENT, grantedBytes, function() {}, errorHandler);
+    }, function(e) {
+        console.log('Error', e);
+    });
+
+
+
+
+
+
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
     //关联页码
     //页码数
@@ -54,6 +108,17 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             });
         }
     };
+
+    //页码数
+    var getPagenum = function() {
+        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
+            avalon.vmodels.addpage.pgNum.push({
+                "num": i,
+                "name": "第" + (i + 1) + "页"
+            });
+        }
+    };
+
     //新建场景视图
     var newStage = function() {
 
@@ -97,13 +162,23 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             "errorMsg": "数据请求失败",
             "status": "0"
         };
+
+
         str = JSON.stringify(data);
 
         //存入本地数据库
         localStorage.pages = str;
 
         rootMd.pages.pushArray(data.body);
+
         avalon.mix(true, rootMd.$pagesCopy, data.body);
+
+        //清除旧页码
+        avalon.vmodels.addpage.pgNum.clear();
+        //生成页码
+        getPagenum();
+
+        msroot.selecttab = 0;
 
         //当前页面全局信息
         addpageMd.pgName = rootMd.pages[rootMd.selecttab].pgName;
@@ -118,9 +193,6 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         //一份是为左边视图绑定的，一份是为右边操作绑定的
         addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
         editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
-
-        getPagenum();
-
         animShow();
     };
 
@@ -215,19 +287,10 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         rootMd.pages.push(dataTemp);
     };
 
-    //页码数
-    var getPagenum = function() {
-        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
-            avalon.vmodels.addpage.pgNum.push({
-                "num": i,
-                "name": "第" + (i + 1) + "页"
-            });
-        }
-    };
 
     var msroot = avalon.define({
         $id: "root",
-        webtitle: 'H5building',
+        webtitle: 'H5master',
         footer: '',
         header: 'modules/header/header.html', //头部模板
         addpage: 'modules/addpage/addpage.html', //添加页面模板
@@ -288,21 +351,58 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             animShow();
             saveLocaldata();
         },
-        demoView: function() {
-            avalon.each(msroot.pages,function(index, el) {
-                avalon.log($('.temporary').html());
-            });
-        },
+        //发布到服务器。这里需要服务器上作相应处理
+        h5header: '<!doctype html>'+
+                '<html lang="en">'+
+                '<head>'+
+                    '<meta charset="utf-8">'+
+                    '<meta name="author" content="hahnzhu" />'+
+                    '<meta name="format-detection" content="telephone=no" />'+
+                    '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>'+
+                    '<meta name="apple-mobile-web-app-capable" content="yes" />'+
+                    '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />'+
+                    '<title>Demo</title>'+
+                    '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.css">'+
+                    '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax-animation.css">'+
+                '</head>'+
+                '<body>'+
+                '<div class="wrapper">',
+        h5footer: '</div>' +
+            '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/zepto.min.js"></script>'+
+            '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.js"></script>'+
+            '<script>'+
+
+                '$(".pages").parallax({ '+
+                    'direction: "vertical"  , ' + // horizontal (水平翻页)
+                    'swipeAnim: "cover",  ' + // cover (切换效果)
+                    'drag:      true,        ' + // 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
+                    'loading:   false,       ' + // 有无加载页
+                    'indicator: false,       ' + // 有无指示点
+                    'arrow:     false,       ' + // 有无指示箭头
+
+               ' });'+
+
+            '</script>'+
+            '</body>'+
+            '</html>',
         stagePublish: function() {
+            avalon.log(msroot.h5header+$('.temporary').html() + msroot.h5footer);
+        },
+        //保存为Html页面,
+        saveHtml: function() {
+
+
+        },
+        //导入pages数据
+        ImportPages: function() {
+
+        },
+        //导chupages数据
+        exportPages: function() {
 
         }
 
     });
     avalon.scan();
-
-
-
-    /*  A.$watch('a', function(v){      B.b = v        })
-        B.$watch('b', function(v){      A.a = v        })*/
 
 });

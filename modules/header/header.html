@@ -10,6 +10,9 @@
 
         <a class="navbar-brand" href="./">{{webtitle}}</a>
         <button type="button" class="btn btn-dark btn-xs" ms-click="newstage">重置视图</button>
+        <button type="button" class="btn btn-dark btn-xs" ms-click="ImportPages">导入</button>
+        <button type="button" class="btn btn-dark btn-xs" ms-click="exportPages">导出</button>
+        <button type="button" class="btn btn-dark btn-xs" ms-click="saveHtml">下载到本地</button>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
@@ -17,9 +20,7 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><button type="button" class="btn btn-info " id="view" ms-click="demoView">预览</button></li>
-          <li><button type="button" class="btn btn-warning " id="publish" ms-click="stagePublish">发布</button></li>
-
+          <li><button type="button" class="btn btn-info " id="view" ms-click="stagePublish" style="margin-right:30px;">发布</button></li>
         </ul>
       </div>
     </div>
