@@ -143,9 +143,9 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                     "elBackgroundcolor": "#d90d25",
                     "elColor": "#fff",
                     "elZindex": "1",
-                    "elSize": "2",
-                    "elWidth": "35",
-                    "elHeight": "",
+                    "elSize": "1",
+                    "elRight": "25",
+                    "elBottom": "",
                     "elBorderradius": "3",
                     "elLeft": "2",
                     "elTop": "10",
@@ -155,7 +155,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                     "elAnimentout": "balanceOut",
                     "elAnimentcount": "1",
                     "elAnimentdelaytime": "500",
-                    "el.elAnimenttime": "500",
+                    "elAnimenttime": "500",
                     "elActive": false
                 }]
             }],
@@ -272,6 +272,114 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         avalon.log(rootMd.pages.$model)
     };
 
+    //返回给html5的数据
+    var  h5Data = function(){
+            var rootMd = avalon.vmodels.root;
+            var str = '';
+            var strB = '';
+            var temp=[];
+
+            avalon.each(rootMd.pages,function(index, el) {
+
+                str = '<section class="page" style="background-color: '+
+                el.pgBackgroundcolor+
+                ';background-image: url('+
+                el.pgBackgroundimage+'); ">';
+
+                temp.push(str);
+
+                avalon.each(el.pgEle, function(indexB, elB) {
+
+                        if(elB.elType=='img'){
+                            str='<div class="viewobj" data-animation="'+
+                            elB.elAnimentin+
+                            '" data-delay="'+
+                            elB.elAnimentdelaytime+
+                            '" data-duration="'+
+                            elB.elAnimenttime+
+                            '" data-count="'+
+                            elB.elAnimentcount+
+                            '" style="'+
+                            'z-index:'+
+                            elB.elZindex+
+                            'em;padding:'+
+                            elB.elPadding+
+                            'em;text-align:'+
+                            elB.elAlign+
+                            ';">';
+                            temp.push(str);
+
+                            str = '<img src="'+
+                            elB.elContent+
+                            '" style="border-radius:'+
+                            elB.elBorderradius+
+                            'em; background-color:'+
+                            elB.elBackgroundcolor+
+                            ';right:'+
+                            elB.elRight+
+                            'em;bottom:'+
+                            elB.elBottom+
+                            'em;left:'+
+                            elB.elLeft+
+                            'em;top:'+
+                            elB.elTop+'em';
+                            temp.push(str);
+
+                            str =';"/>';
+                            temp.push(str);
+                        }else{
+                            str='<div class="viewobj" data-animation="'+
+                            elB.elAnimentin+
+                            '" data-delay="'+
+                            elB.elAnimentdelaytime+
+                            '" data-duration="'+
+                            elB.elAnimenttime+
+                            '" data-count="'+
+                            elB.elAnimentcount+
+                            '" style="background-color:'+
+                            elB.elBackgroundcolor+
+                            ';z-index:'+
+                            elB.elZindex+
+                            ';right:'+
+                            elB.elRight+
+                            'em;bottom:'+
+                            elB.elBottom+
+                            'em;border-radius:'+
+                            elB.elBorderradius+
+                            'em;left:'+
+                            elB.elLeft+
+                            'em;top:'+
+                            elB.elTop+
+                            'em;padding:'+
+                            elB.elPadding+
+                            'em;text-align:'+
+                            elB.elAlign+
+                            ';">';
+                            temp.push(str);
+
+                            str ='<span style="color:'+
+                            elB.elColor+
+                            '; font-size: '+elB.elSize+'em;">';
+                            temp.push(str);
+
+                            str =elB.elContent;
+                            temp.push(str);
+
+                            str ='</span>';
+                            temp.push(str);
+                        }
+
+                    str='</div>';
+                    temp.push(str);
+                });
+
+                str = '</section>';
+                temp.push(str);
+            });
+
+            rootMd.h5content = temp.join('');
+        };
+
     //创建单个页面时要向pages数据中存入一个页面对象元素
     //这个对象元素包含一个单页面的所有属性，这里把值设为空
     var dataNew = function(page) {
@@ -356,7 +464,6 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 '<html lang="en">'+
                 '<head>'+
                     '<meta charset="utf-8">'+
-                    '<meta name="author" content="hahnzhu" />'+
                     '<meta name="format-detection" content="telephone=no" />'+
                     '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>'+
                     '<meta name="apple-mobile-web-app-capable" content="yes" />'+
@@ -364,10 +471,12 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                     '<title>Demo</title>'+
                     '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.css">'+
                     '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax-animation.css">'+
+                     '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/custom.css">'+
                 '</head>'+
                 '<body>'+
-                '<div class="wrapper">',
-        h5footer: '</div>' +
+                '<div class="wrapper">'+
+                '<div class="pages">',
+        h5footer: '</div></div>' +
             '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/zepto.min.js"></script>'+
             '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.js"></script>'+
             '<script>'+
@@ -385,8 +494,10 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             '</script>'+
             '</body>'+
             '</html>',
+        h5content:'',
         stagePublish: function() {
-            avalon.log(msroot.h5header+$('.temporary').html() + msroot.h5footer);
+            h5Data();
+            avalon.log(msroot.h5header+msroot.h5content+msroot.h5footer);
         },
         //保存为Html页面,
         saveHtml: function() {
@@ -404,5 +515,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
 
     });
     avalon.scan();
+
+
 
 });

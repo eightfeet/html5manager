@@ -116,8 +116,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             "elColor": "",
             "elZindex": "",
             "elSize": "",
-            "elWidth": "",
-            "elHeight": "",
+            "elRight": "25",
+            "elBottom": "",
             "elBorderradius": "",
             "elLeft": "",
             "elTop": "",
@@ -126,8 +126,8 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             "elAnimentin": "",
             "elAnimentout": "",
             "elAnimentcount":"1",
-            "elAnimentdelaytime": "",
-            "elAnimenttime": "",
+            "elAnimentdelaytime": "0",
+            "elAnimenttime": "500",
             "elActive": true
         };
         avalon.log(addpageMd.elementInfo);

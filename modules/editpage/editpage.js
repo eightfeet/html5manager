@@ -172,6 +172,21 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
         },
         delColor: function($index, el) {
             el.elColor = "";
+        },
+        delBottom:function($index,el){
+            el.elBottom = "";
+            avalon.vmodels.editpage.layoutInfo[$index].elBottom = "";
+        },
+        delTop:function($index,el){
+            el.elTop = "";
+            avalon.vmodels.editpage.layoutInfo[$index].elTop = "";
+        },
+        delLeft:function($index,el){
+            el.elLeft = "";
+            avalon.vmodels.editpage.layoutInfo[$index].elLeft = "";
+        },
+        delRight:function($index,el){
+            el.elRight = "";
         }
     });
 
@@ -205,34 +220,34 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
         if (!localStorage.pages) {
             data = {
                 "body": [{
-                    "pgName": "",
-                    "pgAnimate": "",
-                    "pgBackgroundcolor": "",
-                    "pgBackgroundimage": "",
-                    "pgIndex": 0,
-                    "pgEle": [{
-                        "elName": "元素1",
-                        "elType": "text",
-                        "elContent": "<a href='#' style='text-shadow:.1em .1em .1em rgba(0, 0, 0, .5) '>hellow,world!</a>",
-                        "elBackgroundcolor": "#d90d25",
-                        "elColor": "#fff",
-                        "elZindex": "1",
-                        "elSize": "2",
-                        "elWidth": "35",
-                        "elHeight": "",
-                        "elBorderradius": "3",
-                        "elLeft": "2",
-                        "elTop": "10",
-                        "elPadding": "2",
-                        "elAlign": "center",
-                        "elAnimentin": "fadeIn",
-                        "elAnimentout": "balanceOut",
-                        "elAnimentcount": "1",
-                        "elAnimentdelaytime": "500",
-                        "el.elAnimenttime": "500",
-                        "elActive": false
-                    }]
-                }, {
+                "pgName": "",
+                "pgAnimate": "",
+                "pgBackgroundcolor": "",
+                "pgBackgroundimage": "",
+                "pgIndex": "0",
+                "pgEle": [{
+                    "elName": "元素1",
+                    "elType": "text",
+                    "elContent": "<a href='#' style='text-shadow:.1em .1em .1em rgba(0, 0, 0, .5) '>hellow,world!</a>",
+                    "elBackgroundcolor": "#d90d25",
+                    "elColor": "#fff",
+                    "elZindex": "1",
+                    "elSize": "1",
+                    "elRight": "25",
+                    "elBottom": "",
+                    "elBorderradius": "3",
+                    "elLeft": "2",
+                    "elTop": "10",
+                    "elPadding": "2",
+                    "elAlign": "center",
+                    "elAnimentin": "fadeIn",
+                    "elAnimentout": "balanceOut",
+                    "elAnimentcount": "1",
+                    "elAnimentdelaytime": "500",
+                    "elAnimenttime": "500",
+                    "elActive": false
+                }]
+            }, {
                     "pgName": "第2页",
                     "pgAnimate": "",
                     "pgBackgroundcolor": "#e9e9e9",
@@ -246,11 +261,11 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
                         "elColor": "",
                         "elZindex": "",
                         "elSize": "",
-                        "elWidth": "38",
-                        "elHeight": "",
+                        "elRight": "25",
+                        "elBottom": "",
                         "elBorderradius": "",
                         "elLeft": "2",
-                        "elTop": "2",
+                        "elTop": "4",
                         "elPadding": "",
                         "elAlign": "center",
                         "elAnimentin": "slideToLeft",

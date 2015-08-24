@@ -15,20 +15,25 @@
                         ms-repeat="elementInfo"
                         ms-css-background-color="el.elBackgroundcolor"
                         ms-css-z-index="el.elZindex"
-                        ms-css-left="{{el.elLeft+'em'}}"
                         ms-css-padding="{{el.elPadding+'em'}}"
-                        ms-css-top="{{el.elTop+'em'}}"
+
+                        ms-css-left="{{(el.elType == 'text'&&el.elLeft!='')?(el.elLeft+'em'):''}}"
+                        ms-css-top="{{(el.elType == 'text'&&el.elTop!='')?(el.elTop+'em'):''}}"
+                        ms-css-right="{{(el.elType == 'text'&&el.elRight!='')?(el.elRight+'em'):''}}"
+                        ms-css-bottom="{{(el.elType == 'text'&&el.elBottom!='')?(el.elBottom+'em'):''}}"
+
                         ms-css-text-align="{{el.elAlign}}"
-                        ms-css-width="el.elType == 'text'?(el.elWidth+'em'):''"
-                        ms-css-height="el.elType == 'text'?(el.elHeight+'em'):''"
+
                         ms-css-border-radius="{{el.elType == 'text'?(el.elBorderradius+'em'):''}}"
                         ms-class="{{el.elAnimentin+' '+el.elAnimentdelaytime}}">
 
                         <img ms-src="el.elType == 'img'?el.elContent:''" alt=""
                         ms-if="el.elType == 'img'?true:false"
                         ms-css-border-radius="{{el.elType == 'img'?(el.elBorderradius+'em'):''}}"
-                        ms-css-width="el.elType == 'img'?(el.elWidth+'em'):''"
-                        ms-css-height="el.elType == 'img'?(el.elHeight+'em'):''">
+                        ms-css-left="{{(el.elType == 'img'&&el.elLeft!='')?(el.elLeft+'em'):''}}"
+                        ms-css-top="{{(el.elType == 'img'&&el.elTop!='')?(el.elTop+'em'):''}}"
+                        ms-css-right="{{(el.elType == 'img'&&el.elRight!='')?(el.elRight+'em'):''}}"
+                        ms-css-bottom="{{(el.elType == 'img'&&el.elBottom!='')?(el.elBottom+'em'):''}}"/>
                         <span ms-css-color="el.elColor"
                         ms-css-font-size="{{el.elType == 'text'?(el.elSize + 'em'):''}}"
                         ms-if="el.elType == 'text'?true:false">{{el.elType == 'text'?el.elContent|html:el.elContent}}</span>
