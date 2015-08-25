@@ -1,12 +1,12 @@
 /*!
  * H5master v0.7
- * author eightfeet
- * Open source https://github.com/eightfeet/html5manager.git/
- * Includes avalon，jquery&plugin(colpick)，Bootstrap，parallax，& more...
- * Copyright 2015 copyright eightfeet
- * http://eightfeet.github.io/html5master/
- * http://eightfeet.cn
- * Date: 2015-08-24
+ * @author eightfeet
+ * @Open source https://github.com/eightfeet/html5manager.git/
+ * @Includes avalon，jquery&plugin(colpick)，Bootstrap，parallax，& more...
+ * @Copyright 2015 copyright eightfeet
+ * @http://eightfeet.github.io/html5master/
+ * @http://eightfeet.cn
+ * @Date: 2015-08-24
  */
 require.config({ //第一块，配置
     baseUrl: '',
@@ -135,7 +135,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 "pgAnimate": "",
                 "pgBackgroundcolor": "",
                 "pgBackgroundimage": "",
-                "pgIndex": "0",
+                "pgIndex": 0,
                 "pgEle": [{
                     "elName": "元素1",
                     "elType": "text",
@@ -144,7 +144,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                     "elColor": "#fff",
                     "elZindex": "1",
                     "elSize": "1",
-                    "elRight": "25",
+                    "elRight": "2",
                     "elBottom": "",
                     "elBorderradius": "3",
                     "elLeft": "2",
@@ -302,6 +302,16 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                             '" style="'+
                             'z-index:'+
                             elB.elZindex+
+                            '; background-color:'+
+                            elB.elBackgroundcolor+
+                            ';right:'+
+                            elB.elRight+
+                            'em;bottom:'+
+                            elB.elBottom+
+                            'em;left:'+
+                            elB.elLeft+
+                            'em;top:'+
+                            elB.elTop+
                             'em;padding:'+
                             elB.elPadding+
                             'em;text-align:'+
@@ -312,17 +322,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                             str = '<img src="'+
                             elB.elContent+
                             '" style="border-radius:'+
-                            elB.elBorderradius+
-                            'em; background-color:'+
-                            elB.elBackgroundcolor+
-                            ';right:'+
-                            elB.elRight+
-                            'em;bottom:'+
-                            elB.elBottom+
-                            'em;left:'+
-                            elB.elLeft+
-                            'em;top:'+
-                            elB.elTop+'em';
+                            elB.elBorderradius+'em';
                             temp.push(str);
 
                             str =';"/>';
@@ -395,6 +395,11 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         rootMd.pages.push(dataTemp);
     };
 
+    $(function() {
+        $('#isLoading').change(function(){
+            avalon.vmodels.addpage.isLoading=$(this).prop("checked");
+        });
+    });
 
     var msroot = avalon.define({
         $id: "root",
@@ -483,11 +488,11 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
 
                 '$(".pages").parallax({ '+
                     'direction: "vertical"  , ' + // horizontal (水平翻页)
-                    'swipeAnim: "cover",  ' + // cover (切换效果)
-                    'drag:      true,        ' + // 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
-                    'loading:   false,       ' + // 有无加载页
-                    'indicator: false,       ' + // 有无指示点
-                    'arrow:     false,       ' + // 有无指示箭头
+                    'swipeAnim: "cover",  ' + // 滚动动画，"default/cover"
+                    'drag:      false,        ' + // 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
+                    'loading:   true,       ' + // 有无加载页
+                    'indicator: true,       ' + // 有无指示点
+                    'arrow:     true,       ' + // 有无指示箭头
 
                ' });'+
 
@@ -511,11 +516,20 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         //导chupages数据
         exportPages: function() {
 
-        }
+        },
+        //loading
+        loading:true,
+
+        //发布设置
+        isLoading:'',
+        isHorizontal:'',
+        isNave:'',
+        isArrow:'',
+        isMusic:'',
+        bgMusic:''
+
 
     });
     avalon.scan();
-
-
 
 });

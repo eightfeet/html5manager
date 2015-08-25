@@ -1,3 +1,13 @@
+/*!
+ * H5master v0.7
+ * @author eightfeet
+ * @Open source https://github.com/eightfeet/html5manager.git/
+ * @Includes avalon，jquery&plugin(colpick)，Bootstrap，parallax，& more...
+ * @Copyright 2015 copyright eightfeet
+ * @http://eightfeet.github.io/html5master/
+ * @http://eightfeet.cn
+ * @Date: 2015-08-24
+ */
 require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!', 'upload'], function(avalon, css, animShow, domReady, upload) {
     var rootMd = avalon.vmodels.root,
         addpageMd = avalon.vmodels.addpage,

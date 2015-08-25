@@ -1,3 +1,13 @@
+/*!
+ * H5master v0.7
+ * @author eightfeet
+ * @Open source https://github.com/eightfeet/html5manager.git/
+ * @Includes avalon，jquery&plugin(colpick)，Bootstrap，parallax，& more...
+ * @Copyright 2015 copyright eightfeet
+ * @http://eightfeet.github.io/html5master/
+ * @http://eightfeet.cn
+ * @Date: 2015-08-24
+ */
 require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick', 'domReady!', 'upload'], function(avalon, css, animShow, colpick, dom, upload) {
 
     //数据请求方法
@@ -224,7 +234,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
                 "pgAnimate": "",
                 "pgBackgroundcolor": "",
                 "pgBackgroundimage": "",
-                "pgIndex": "0",
+                "pgIndex": 0,
                 "pgEle": [{
                     "elName": "元素1",
                     "elType": "text",
@@ -233,7 +243,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
                     "elColor": "#fff",
                     "elZindex": "1",
                     "elSize": "1",
-                    "elRight": "25",
+                    "elRight": "2",
                     "elBottom": "",
                     "elBorderradius": "3",
                     "elLeft": "2",
@@ -261,11 +271,11 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
                         "elColor": "",
                         "elZindex": "",
                         "elSize": "",
-                        "elRight": "25",
+                        "elRight": "",
                         "elBottom": "",
                         "elBorderradius": "",
-                        "elLeft": "2",
-                        "elTop": "4",
+                        "elLeft": "",
+                        "elTop": "",
                         "elPadding": "",
                         "elAlign": "center",
                         "elAnimentin": "slideToLeft",
@@ -329,8 +339,10 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
 
             getPagenum();
 
+
             animShow();
         }
+        rootMd.loading=false;
     };
 
 
