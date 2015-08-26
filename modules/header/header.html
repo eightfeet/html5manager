@@ -9,9 +9,9 @@
             </button>
             <a class="navbar-brand" href="./">{{webtitle}}</a>
             <button type="button" class="btn btn-dark btn-xs" ms-click="newstage">重置视图</button>
-            <button type="button" class="btn btn-dark btn-xs" ms-click="ImportPages">导入</button>
-            <button type="button" class="btn btn-dark btn-xs" ms-click="exportPages">导出</button>
-            <button type="button" class="btn btn-dark btn-xs" ms-click="saveHtml">下载到本地</button>
+            <button type="button" class="btn btn-dark btn-xs"  data-toggle="modal" data-target="#myModalImportPages">导入</button>
+            <button type="button" class="btn btn-dark btn-xs" ms-click="exportPages"  data-toggle="modal" data-target="#myModalexportPages">导出</button>
+            <button type="button" class="btn btn-dark btn-xs" ms-click="saveHtml"  data-toggle="modal" data-target="#myModalsaveHtml">导出html</button>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
@@ -20,12 +20,132 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button type="button" class="btn btn-dark btn-xs" data-toggle="modal" data-target="#myModal"> 发布设置</button>
+                    <button type="button" class="btn btn-dark btn-xs" data-toggle="modal" data-target="#myModalpublish"> 发布设置</button>
                 </li>
                 <li>
                     <button type="button" class="btn btn-info btn-xs" id="view" ms-click="stagePublish" style="margin-right:30px; margin-top:13px; margin-left:20px;">发布</button>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 发布设置 -->
+<div class="modal fade" id="myModalpublish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">发布设置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top:10px">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        <label class="checkbox-inline">
+                            <input style="vertical-align: middle" id="isLoading"
+                                ms-attr-checked="{{isLoading=='true'?true:false}}" type="checkbox"  /> 显示加载
+                        </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" style="vertical-align: middle" id="direction"
+                                ms-attr-checked="{{isdirection=='horizontal'?true:false}}"> 横向滚屏（默认纵向）
+                        </label>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        <label class="checkbox-inline">
+                            <input type="checkbox"  style="vertical-align: middle" id="isIndicator"
+                                ms-attr-checked="{{isIndicator=='true'?true:false}}"> 显示导航条
+                        </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <label class="checkbox-inline">
+                            <input type="checkbox"  style="vertical-align: middle" id="isArrow"
+                            ms-attr-checked="{{isArrow=='true'?true:false}}"> 显示箭头
+                        </label>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="row" style="margin-top:20px">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox"  style="vertical-align: middle" id="isMusic"
+                                ms-attr-checked="{{isMusic=='true'?true:false}}">
+                            </span>
+                            <input type="text" class="form-control"   ms-attr-disabled="{{isMusic=='true'?false:true}}" placeholder="背景音乐"  ms-duplex="h5musicpath">
+                          </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" style="padding: 5px 20px;">确定</button>
+      </div>
+        </div>
+    </div>
+</div>
+
+<!-- 导出html -->
+<div class="modal fade" id="myModalsaveHtml" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">导出html</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top:10px; ">
+                        <textarea class="form-control" rows="10" ms-duplex="saveHtmlcontent"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+      </div>
+        </div>
+    </div>
+</div>
+
+<!-- 导出 -->
+<div class="modal fade" id="myModalexportPages" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">请保存数据</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top:10px; ">
+                        <textarea class="form-control" rows="10" ms-duplex="exportContent"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+      </div>
+        </div>
+    </div>
+</div>
+
+<!-- 导入 -->
+<div class="modal fade" id="myModalImportPages" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">请导入数据</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top:10px; ">
+                        <textarea class="form-control" rows="10" ms-duplex="importContent"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+        <button type="button" class="btn btn-primary" ms-click="ImportPages"  style="padding: 5px 20px;">确定</button>
+      </div>
         </div>
     </div>
 </div>

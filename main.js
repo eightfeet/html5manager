@@ -53,50 +53,6 @@ require.config({ //第一块，配置
 
 require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], function(avalon, domready, bs, css, $, animShow) {
 
-    //本地文件操作申请
-    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem; //文件系统请求标识
-    window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL || window.webkitResolveLocalFileSystemURL; //根据URL取得文件的读取权限
-
-    //文件操作失败回调
-    var errorHandler = function(e) {
-        var msg = '';
-
-        switch (e.code) {
-            case FileError.QUOTA_EXCEEDED_ERR:
-                msg = 'QUOTA_EXCEEDED_ERR';
-                break;
-            case FileError.NOT_FOUND_ERR:
-                msg = 'NOT_FOUND_ERR';
-                break;
-            case FileError.SECURITY_ERR:
-                msg = 'SECURITY_ERR';
-                break;
-            case FileError.INVALID_MODIFICATION_ERR:
-                msg = 'INVALID_MODIFICATION_ERR';
-                break;
-            case FileError.INVALID_STATE_ERR:
-                msg = 'INVALID_STATE_ERR';
-                break;
-            default:
-                msg = 'Unknown Error';
-                break;
-        }
-
-        console.log('Error: ' + msg);
-    };
-
-    //请求存储配额
-    window.webkitStorageInfo.requestQuota(PERSISTENT, 5 * 1024 * 1024, function(grantedBytes) {
-        window.requestFileSystem(PERSISTENT, grantedBytes, function() {}, errorHandler);
-    }, function(e) {
-        console.log('Error', e);
-    });
-
-
-
-
-
-
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
     //关联页码
     //页码数
@@ -377,7 +333,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 temp.push(str);
             });
 
-            rootMd.h5content = temp.join('');
+            rootMd.html5master.h5content = temp.join('');
         };
 
     //创建单个页面时要向pages数据中存入一个页面对象元素
@@ -395,15 +351,98 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         rootMd.pages.push(dataTemp);
     };
 
+    var setH5parallax = function(){
+        var rootMd = avalon.vmodels.root;
+        rootMd.html5master.h5parallax = '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/zepto.min.js"></script>'+
+                '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.js"></script>'+
+                '<script>'+
+                    '$(".pages").parallax({ '+
+                        'direction: "'+rootMd.isdirection+'"  , ' + // horizontal (水平翻页)
+                        'swipeAnim:"'+rootMd.isswipeAnim+'",  ' + // 滚动动画，"default/cover"
+                        'drag:      false,        ' + // 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
+                        'loading:   '+rootMd.isLoading+', ' + // 有无加载页
+                        'indicator: '+rootMd.isIndicator+',       ' + // 有无指示点
+                        'arrow:     '+rootMd.isArrow+',       ' + // 有无指示箭头
+                   ' });'+
+                '</script>';
+    };
+    var setH5music = function(){
+        var rootMd = avalon.vmodels.root;
+         rootMd.html5master.h5music = '<i class="music mon"></i>'+
+                '<audio id="myaudio" src="'+rootMd.h5musicpath+'" loop autoplay preload="preload" class="hide"></audio>'+
+                '<script>'+
+                 '$(".music").click(function() {'+//背景音乐播放器
+                        /* Act on the event */
+                           ' var $t = $(this);'+
+                            'if($t.hasClass("mon")){'+
+                            //用户开始播放
+                                '$t.removeClass("mon");'+
+                                'document.getElementById("myaudio").pause();'+
+                            '}else{'+
+                            //用户暂停播放
+                                '$t.addClass("mon");'+
+                                'document.getElementById("myaudio").play();'+
+                            '};'+
+                    '});'+
+                '</script>';
+    };
+
     $(function() {
         $('#isLoading').change(function(){
-            avalon.vmodels.addpage.isLoading=$(this).prop("checked");
+            if($(this).prop("checked")){
+                avalon.vmodels.root.isLoading='true';
+            }else{
+                avalon.vmodels.root.isLoading='false';
+            }
+        });
+        $('#direction').change(function(){
+            if($(this).prop("checked")){
+                avalon.vmodels.root.isdirection='horizontal';
+            }else{
+                avalon.vmodels.root.isdirection='vertical';
+            }
+        });
+        $('#isIndicator').change(function(){
+            if($(this).prop("checked")){
+                avalon.vmodels.root.isIndicator='true';
+            }else{
+                avalon.vmodels.root.isIndicator='false';
+            }
+        });
+        $('#isArrow').change(function(){
+            if($(this).prop("checked")){
+                avalon.vmodels.root.isArrow='true';
+            }else{
+                avalon.vmodels.root.isArrow='false';
+            }
+        });
+        $('#isMusic').change(function(){
+            if($(this).prop("checked")){
+                avalon.vmodels.root.isMusic='true';
+                avalon.vmodels.root.h5musicpath='http://evt.dianping.com/5370/sounds/bg.mp3';
+            }else{
+                avalon.vmodels.root.isMusic='false';
+                avalon.vmodels.root.h5musicpath='';
+            }
         });
     });
+
+
 
     var msroot = avalon.define({
         $id: "root",
         webtitle: 'H5master',
+
+        //发布设置
+        isLoading:'true',
+        isdirection:'vertical',//是否垂直滚动,（horizontal水平）
+        isswipeAnim:'cover',// 滚动动画，"default/cover"
+        isIndicator:'true',// 有无指示点
+        isArrow:'true',//有无指示箭头
+        isMusic:'false',//有无音乐
+
+        h5musicpath:'',
+
         footer: '',
         header: 'modules/header/header.html', //头部模板
         addpage: 'modules/addpage/addpage.html', //添加页面模板
@@ -465,68 +504,127 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             saveLocaldata();
         },
         //发布到服务器。这里需要服务器上作相应处理
-        h5header: '<!doctype html>'+
-                '<html lang="en">'+
-                '<head>'+
-                    '<meta charset="utf-8">'+
-                    '<meta name="format-detection" content="telephone=no" />'+
-                    '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>'+
-                    '<meta name="apple-mobile-web-app-capable" content="yes" />'+
-                    '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />'+
-                    '<title>Demo</title>'+
-                    '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.css">'+
-                    '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax-animation.css">'+
-                     '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/custom.css">'+
-                '</head>'+
-                '<body>'+
-                '<div class="wrapper">'+
-                '<div class="pages">',
-        h5footer: '</div></div>' +
-            '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/zepto.min.js"></script>'+
-            '<script src="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.js"></script>'+
-            '<script>'+
+        html5master:{
+            h5header: '<!doctype html>'+
+                    '<html lang="en">'+
+                    '<head>'+
+                        '<meta charset="utf-8">'+
+                        '<meta name="format-detection" content="telephone=no" />'+
+                        '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>'+
+                        '<meta name="apple-mobile-web-app-capable" content="yes" />'+
+                        '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />'+
+                        '<title>Demo</title>'+
+                        '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.css">'+
+                        '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax-animation.css">'+
+                         '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/custom.css">'+
+                    '</head>'+
+                    '<body>'+
+                    '<div class="wrapper">'+
+                    '<div class="pages">',
+            h5music:'',
+            h5parallax: '',
+            h5footer:'</div></div>' +
+                            '</body>'+
+                            '</html>',
+            h5content:''
+        },
 
-                '$(".pages").parallax({ '+
-                    'direction: "vertical"  , ' + // horizontal (水平翻页)
-                    'swipeAnim: "cover",  ' + // 滚动动画，"default/cover"
-                    'drag:      false,        ' + // 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
-                    'loading:   true,       ' + // 有无加载页
-                    'indicator: true,       ' + // 有无指示点
-                    'arrow:     true,       ' + // 有无指示箭头
 
-               ' });'+
-
-            '</script>'+
-            '</body>'+
-            '</html>',
-        h5content:'',
         stagePublish: function() {
             h5Data();
-            avalon.log(msroot.h5header+msroot.h5content+msroot.h5footer);
+            setH5parallax();//配置滚动
+            setH5music();//配置背景音乐
+
+            if(msroot.isMusic=='true'){
+                avalon.log(
+                msroot.html5master.h5header+
+                msroot.html5master.h5content+
+                msroot.html5master.h5parallax+
+                msroot.html5master.h5music+
+                msroot.html5master.h5footer);
+            }else{
+                avalon.log(
+                msroot.html5master.h5header+
+                msroot.html5master.h5content+
+                msroot.html5master.h5parallax+
+                msroot.html5master.h5footer);
+            }
+
         },
         //保存为Html页面,
+        saveHtmlcontent:'',
         saveHtml: function() {
-
-
+            h5Data();
+            setH5parallax();//配置滚动
+            setH5music();//配置背景音乐
+            msroot.saveHtmlcontent='';//清空数据
+            if(msroot.isMusic=='true'){
+                msroot.saveHtmlcontent=msroot.html5master.h5header+
+                msroot.html5master.h5content+
+                msroot.html5master.h5parallax+
+                msroot.html5master.h5music+
+                msroot.html5master.h5footer;
+            }else{
+                msroot.saveHtmlcontent=msroot.html5master.h5header+
+                msroot.html5master.h5content+
+                msroot.html5master.h5parallax+
+                msroot.html5master.h5footer;
+            }
         },
+
         //导入pages数据
+        importContent:'',
         ImportPages: function() {
+            var tempData =  JSON.parse(msroot.importContent);
 
+            var isArray = function (o) {
+                return Object.prototype.toString.call(o) === '[object Array]';
+            };
+
+            var rootMd = avalon.vmodels.root,
+            addpageMd = avalon.vmodels.addpage,
+            editpageMd = avalon.vmodels.editpage;
+
+            if(isArray(tempData.body)){
+                var str = '';
+                var data = {};
+
+                rootMd.pages.clear();
+                addpageMd.pgNum.clear();
+
+                rootMd.pages.pushArray(tempData.body);
+                //当前页面全局信息
+                addpageMd.pgName = rootMd.pages[rootMd.selecttab].pgName;
+                addpageMd.pgAnimate = rootMd.pages[rootMd.selecttab].pgAnimate;
+                addpageMd.pgBackgroundcolor = rootMd.pages[rootMd.selecttab].pgBackgroundcolor;
+                addpageMd.pgBackgroundimage = rootMd.pages[rootMd.selecttab].pgBackgroundimage;
+                addpageMd.pgIndex = rootMd.selecttab;
+
+                //当前页面元素信息
+                //editpageMd.layoutInfo.clear()
+                //这里做两分数据，
+                //一份是为左边视图绑定的，一份是为右边操作绑定的
+                addpageMd.elementInfo = rootMd.pages[rootMd.selecttab].pgEle;
+                editpageMd.layoutInfo = rootMd.pages[rootMd.selecttab].pgEle;
+
+                getPagenum();
+
+                animShow();
+            }else{
+                alert('数据不正确！');
+            };
         },
-        //导chupages数据
+
+        //导出pages数据
+        exportContent:'',
         exportPages: function() {
-
+            msroot.exportContent=localStorage.pages;
         },
+
         //loading
         loading:true,
 
-        //发布设置
-        isLoading:'',
-        isHorizontal:'',
-        isNave:'',
-        isArrow:'',
-        isMusic:'',
-        bgMusic:''
+
 
 
     });

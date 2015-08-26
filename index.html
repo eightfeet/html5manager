@@ -36,62 +36,7 @@
         <div class="tabcontent clearfix" ms-include-src="addpage" >
         </div>
     </div>
-    <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">发布设置</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row" style="margin-top:10px">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-5">
-                        <label class="checkbox-inline">
-                            <input style="vertical-align: middle" id="isLoading"  type="checkbox"  /> 显示加载
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" style="vertical-align: middle" id="isHorizontal"> 横向滚屏（默认纵向）
-                        </label>
-                    </div>
-                    <div class="col-lg-1"></div>
-                </div>
-                <div class="row" style="margin-top:10px">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-5">
-                        <label class="checkbox-inline">
-                            <input type="checkbox"  style="vertical-align: middle" id="isNave"> 显示导航条
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                        <label class="checkbox-inline">
-                            <input type="checkbox"  style="vertical-align: middle" id="isArrow"> 显示箭头
-                        </label>
-                    </div>
-                    <div class="col-lg-1"></div>
-                </div>
-                <div class="row" style="margin-top:20px">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-10">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox"  style="vertical-align: middle" id="isMusic">
-                            </span>
-                            <input type="text" class="form-control"  ms-attr-disabled="{{isMusic?'':'disabled'}}" placeholder="背景音乐"  ms-duplex="bgMusic">
-                          </div><!-- /input-group -->
-                    </div>
-                    <div class="col-lg-1"></div>
-                </div>
-            </div>
-            <div class="modal-footer" style="text-align: center">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" style="padding: 5px 20px;">确定</button>
-      </div>
-        </div>
-    </div>
-</div>
+
     <script src="vendor/require/require.js" data-main="main.js"></script>
 </body>
 
