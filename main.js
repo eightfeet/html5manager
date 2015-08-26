@@ -593,6 +593,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 addpageMd.pgNum.clear();
 
                 rootMd.pages.pushArray(tempData.body);
+                rootMd.selecttab = 0;
                 //当前页面全局信息
                 addpageMd.pgName = rootMd.pages[rootMd.selecttab].pgName;
                 addpageMd.pgAnimate = rootMd.pages[rootMd.selecttab].pgAnimate;

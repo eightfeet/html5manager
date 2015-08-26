@@ -79,7 +79,7 @@
                               <input type="checkbox"  style="vertical-align: middle" id="isMusic"
                                 ms-attr-checked="{{isMusic=='true'?true:false}}">
                             </span>
-                            <input type="text" class="form-control"   ms-attr-disabled="{{isMusic=='true'?false:true}}" placeholder="背景音乐"  ms-duplex="h5musicpath">
+                            <input type="text" class="form-control"   ms-attr-disabled="{{isMusic=='false'}}" placeholder="背景音乐"  ms-duplex="h5musicpath">
                           </div><!-- /input-group -->
                     </div>
                     <div class="col-lg-1"></div>
@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="modal-footer" style="text-align: center">
-        <button type="button" class="btn btn-primary" ms-click="ImportPages"  style="padding: 5px 20px;">确定</button>
+        <button type="button" class="btn btn-primary" ms-click="ImportPages" data-dismiss="modal"  style="padding: 5px 20px;">确定</button>
       </div>
         </div>
     </div>
