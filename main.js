@@ -419,7 +419,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         $('#isMusic').change(function(){
             if($(this).prop("checked")){
                 avalon.vmodels.root.isMusic='true';
-                avalon.vmodels.root.h5musicpath='http://evt.dianping.com/5370/sounds/bg.mp3';
+                avalon.vmodels.root.h5musicpath='http://eightfeet.github.io/html5master/vendor/parallax/dist/bg.mp3';
             }else{
                 avalon.vmodels.root.isMusic='false';
                 avalon.vmodels.root.h5musicpath='';
