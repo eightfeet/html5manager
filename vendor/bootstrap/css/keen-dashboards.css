@@ -113,9 +113,9 @@ button, input, select, textarea{
 .setbar .btn-gray{background-color: transparent; border:none; }
 
 .setbar .propw{width:90px; border: 1px solid #A9A9A9;}
-.setbar .chartbox{height:700px; overflow-y: auto;}
 
-@media (min-width: 768px) and (max-width: 1440px) {
+
+@media (min-width: 480px) and (max-width: 1440px) {
       .tabcontent{height:550px;}
      .tabcontent .viewbox{ width:320px; height:480px;}
      .viewbox{font-size:12px; position: relative; }
@@ -123,6 +123,7 @@ button, input, select, textarea{
      .tabcontent .setbox{height:480px; }
      .setbar{  width:50%;float: right;  height: 480px; }
      .tabtitle{height:600px; width:5%; float: left; }
+     .setbar .chartbox{height:385px; overflow-y: auto;}
   }
 
   @media (min-width: 1440px){
@@ -133,6 +134,7 @@ button, input, select, textarea{
      .tabcontent .setbox{height:480px; }
      .setbar{  width:50%;float: right;  height: 480px; }
      .tabtitle{height:900px; width:5%; float: left; }
+     .setbar .chartbox{height:700px; overflow-y: auto;}
   }
 
 #bgUpload{
