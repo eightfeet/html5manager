@@ -238,7 +238,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'colpick',
                 "pgEle": [{
                     "elName": "元素1",
                     "elType": "text",
-                    "elContent": "<a href='#' style='text-shadow:.1em .1em .1em rgba(0, 0, 0, .5) '>hellow,world!</a>",
+                    "elContent": "<a href='#' style='text-shadow:.1em .1em .1em rgba(0, 0, 0, .5) '>hello,world!</a>",
                     "elBackgroundcolor": "#d90d25",
                     "elColor": "#fff",
                     "elZindex": "1",
