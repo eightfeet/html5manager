@@ -451,7 +451,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         //发布设置
         isLoading:'true',
         isdirection:'vertical',//是否垂直滚动,（horizontal水平）
-        isswipeAnim:'cover',// 滚动动画，"default/cover"
+        isswipeAnim:'default',// 滚动动画，"default/cover"
         isIndicator:'true',// 有无指示点
         isArrow:'true',//有无指示箭头
         isMusic:'false',//有无音乐
@@ -569,10 +569,13 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 msroot.html5master.h5content+
                 msroot.html5master.h5parallax+
                 msroot.html5master.h5footer;
-            }
-
+            };
+            msroot.loading=true;
             dataRequire('http://o-o.ren/h5','Post',{'html':publishData},function(data){
-                avalon.log('返回链接'+publishData);
+                avalon.log('返回链接'+data.url);
+                var url = 'http://www.'+data.url;
+                window.open(url);
+                msroot.loading=false;
             });
 
         },
