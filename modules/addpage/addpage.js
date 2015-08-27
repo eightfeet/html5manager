@@ -126,7 +126,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             "elColor": "",
             "elZindex": "",
             "elSize": "",
-            "elRight": "25",
+            "elRight": "",
             "elBottom": "",
             "elBorderradius": "",
             "elLeft": "",

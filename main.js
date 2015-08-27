@@ -55,15 +55,6 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
 
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
     //关联页码
-    //页码数
-    var getPagenum = function() {
-        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
-            avalon.vmodels.addpage.pgNum.push({
-                "num": i,
-                "name": "第" + (i + 1) + "页"
-            });
-        }
-    };
 
     //页码数
     var getPagenum = function() {
