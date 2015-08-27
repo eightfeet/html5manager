@@ -42,7 +42,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
         str = JSON.stringify(data);
         //存入本地数据库
         localStorage.pages = str;
-        avalon.log(localStorage.pages);
+        //avalon.log(localStorage.pages);
     };
 
     //删除页面方法
@@ -140,7 +140,7 @@ require(['avalon', 'css!vendor/uploader/webuploader.css', 'parallax', 'domReady!
             "elAnimenttime": "500",
             "elActive": true
         };
-        avalon.log(addpageMd.elementInfo);
+        //avalon.log(addpageMd.elementInfo);
         addpageMd.elementInfo.unshift(dataTemp);
         editpageMd.layoutInfo.unshift(dataTemp);
         rootMd.pages[rootMd.selecttab].pgEle.unshift(dataTemp);

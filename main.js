@@ -75,6 +75,20 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         }
     };
 
+    //数据请求方法
+    var dataRequire = function(url, type, dataarg, callback) {
+        $.ajax({
+            url: url,
+            type: type,
+            dataType: 'json',
+            data: dataarg,
+            success: callback,
+            error: function(data) {
+                avalon.log("bad connect!");
+            }
+        });
+    };
+
     //新建场景视图
     var newStage = function() {
 
@@ -181,7 +195,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         str = JSON.stringify(data);
         //存入本地数据库
         localStorage.pages = str;
-        avalon.log(localStorage.pages);
+        //avalon.log(localStorage.pages);
     };
 
     //每个单页面的数据回填
@@ -225,7 +239,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         //rootMd.pages[page] = {};
         //rootMd.pages[page] = pageTemp;
         rootMd.pages.set(page, pageTemp);
-        avalon.log(rootMd.pages.$model)
+        //avalon.log(rootMd.pages.$model)
     };
 
     //返回给html5的数据
@@ -432,6 +446,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
     var msroot = avalon.define({
         $id: "root",
         webtitle: 'H5master',
+        footinfomation: '营养家平台开发部',
 
         //发布设置
         isLoading:'true',
@@ -443,8 +458,8 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
 
         h5musicpath:'',
 
-        footer: '',
         header: 'modules/header/header.html', //头部模板
+        footer: 'modules/footer/footer.html',//页脚模板
         addpage: 'modules/addpage/addpage.html', //添加页面模板
         nav: [{
             url: '#',
@@ -470,6 +485,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         },
         //创建单个页面
         newpage: function() {
+            if(msroot.pages.length<17){
             //新增页面时也要保存当前页面数据
             dataSave(msroot.selecttab);
             //默认命名为“page1，page2...”，暂时不允许修改页面名
@@ -480,6 +496,8 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             msroot.selecttab = msroot.pages.length - 1; //index从0开始，
             //清除旧页码
             avalon.vmodels.addpage.pgNum.clear();
+            //再保存新增页面数据
+            dataSave(msroot.selecttab);
             //生成页码
             getPagenum();
             //重新填充新页面数据
@@ -489,6 +507,9 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
 
             animShow();
             saveLocaldata();
+        }else{
+                alert('够了，都十七八个page了还在搞！');
+            }
         },
 
         //页面点击时需要做以下事情
@@ -535,20 +556,24 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             setH5parallax();//配置滚动
             setH5music();//配置背景音乐
 
+            var publishData = '';
+
             if(msroot.isMusic=='true'){
-                avalon.log(
-                msroot.html5master.h5header+
+                publishData= msroot.html5master.h5header+
                 msroot.html5master.h5content+
                 msroot.html5master.h5parallax+
                 msroot.html5master.h5music+
-                msroot.html5master.h5footer);
+                msroot.html5master.h5footer;
             }else{
-                avalon.log(
-                msroot.html5master.h5header+
+                publishData= msroot.html5master.h5header+
                 msroot.html5master.h5content+
                 msroot.html5master.h5parallax+
-                msroot.html5master.h5footer);
+                msroot.html5master.h5footer;
             }
+
+            dataRequire('http://o-o.ren/h5','Post',{'html':publishData},function(data){
+                avalon.log('返回链接'+publishData);
+            });
 
         },
         //保存为Html页面,
