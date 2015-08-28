@@ -54,17 +54,6 @@ require.config({ //第一块，配置
 require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], function(avalon, domready, bs, css, $, animShow) {
 
     //window.UEDITOR_HOME_URL = "vendor/ueditor/";//暂时不用编辑器
-    //关联页码
-
-    //页码数
-    var getPagenum = function() {
-        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
-            avalon.vmodels.addpage.pgNum.push({
-                "num": i,
-                "name": "第" + (i + 1) + "页"
-            });
-        }
-    };
 
     //数据请求方法
     var dataRequire = function(url, type, dataarg, callback) {
@@ -80,7 +69,17 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         });
     };
 
-    //新建场景视图
+    //页码数
+    var getPagenum = function() {
+        for (var i = 0, l = avalon.vmodels.root.pages.length; i < l; i++) {
+            avalon.vmodels.addpage.pgNum.push({
+                "num": i,
+                "name": "第" + (i + 1) + "页"
+            });
+        }
+    };
+
+    //新建场景 重置视图
     var newStage = function() {
 
         var rootMd = avalon.vmodels.root,
@@ -157,19 +156,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         animShow();
     };
 
-    //数据请求方法
-    var dataRequire = function(url, type, dataarg, callback) {
-        $.ajax({
-            url: url,
-            type: type,
-            dataType: 'json',
-            data: dataarg,
-            success: callback,
-            error: function(data) {
-                avalon.log("bad connect!");
-            }
-        });
-    };
+
 
     //数据存储
     var saveLocaldata = function() {
@@ -227,10 +214,115 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             "pgEle": editpageMd.pgEle
         };
 
-        //rootMd.pages[page] = {};
-        //rootMd.pages[page] = pageTemp;
         rootMd.pages.set(page, pageTemp);
-        //avalon.log(rootMd.pages.$model)
+    };
+
+    var wxSdkshare = function(){
+        var rootMd = avalon.vmodels.root;
+        //页面数据
+        rootMd.html5master.h5weixin = "<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js' type='text/javascript'></script>"+
+        "<script>"+
+            "$.ajax({"+
+                "type: 'POST',"+
+                "url: '"+rootMd.wxSdkapi+"',"+
+                "data: {"+
+                    "url: '"+rootMd.pageLinkshare+"',"+
+                    "appId: '"+rootMd.wxSdkappid+"'"+
+                "},"+
+                "dataType: 'json',"+
+                "success: function(data) {"+
+                    "wx.config({"+
+                        "debug: true, "+// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        "appId: data.appId,"+ // 必填，公众号的唯一标识
+                        "timestamp: data.timestamp, "+// 必填，生成签名的时间戳
+                        "nonceStr: data.nonceStr, "+// 必填，生成签名的随机串
+                        "signature: data.signature,"+ // 必填，签名，见附录1
+                        "jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']"+ // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    "});"+
+
+                    "wx.ready(function() {"+
+
+                        "var shareConfig = {"+
+                            "title: '"+rootMd.shareTitle+"', "+// 分享标题
+                            "desc: '"+rootMd.shareDesc+"',"+ // 分享描述
+                            "link: '"+rootMd.pageLinkshare+"',"+ // 分享链接
+                            "imgUrl: '"+rootMd.shareIcon+"' "+// 分享图标
+                        "};"+
+
+                        "wx.onMenuShareTimeline({"+
+                            "title: shareConfig.title, "+// 分享标题
+                            "link: shareConfig.link," +// 分享链接
+                            "imgUrl: shareConfig.imgUrl, "+// 分享图标
+                            "success: function() {"+
+                                // 用户确认分享后执行的回调函数
+                            "},"+
+                            "cancel: function() {"+
+                                // 用户取消分享后执行的回调函数
+                            "}"+
+                        "});"+
+
+
+                        "wx.onMenuShareAppMessage({" +
+                            "title: shareConfig.title, " +// 分享标题
+                            "desc: shareConfig.desc," +// 分享描述
+                            "link: shareConfig.link," +// 分享链接
+                           " imgUrl: shareConfig.imgUrl," +// 分享图标
+                            "type: ''," +// 分享类型,music、video或link，不填默认为link
+                            "dataUrl: ''," +// 如果type是music或video，则要提供数据链接，默认为空
+                            "success: function() {"+
+                                // 用户确认分享后执行的回调函数
+                           " },"+
+                           " cancel: function() {"+
+                                // 用户取消分享后执行的回调函数
+                           " }"+
+                       " });"+
+
+                        "wx.onMenuShareQQ({"+
+                            "title: shareConfig.title," +// 分享标题
+                            "desc: shareConfig.desc," +// 分享描述
+                            "link: shareConfig.link," +// 分享链接
+                            "imgUrl: shareConfig.imgUrl," +// 分享图标
+                            "success: function() {"+
+                                // 用户确认分享后执行的回调函数
+                            "},"+
+                            "cancel: function() {"+
+                                // 用户取消分享后执行的回调函数
+                            "}"+
+                        "});"+
+
+                        "wx.onMenuShareWeibo({"+
+                            "title: shareConfig.title," +// 分享标题
+                            "desc: shareConfig.desc," +// 分享描述
+                            "link: shareConfig.link," +// 分享链接
+                            "imgUrl: shareConfig.imgUrl," +// 分享图标
+                            "success: function() {"+
+                                // 用户确认分享后执行的回调函数
+                            "},"+
+                            "cancel: function() {"+
+                                // 用户取消分享后执行的回调函数
+                            "}"+
+                        "});"+
+
+                        "wx.onMenuShareQZone({"+
+                            "title: shareConfig.title," +// 分享标题
+                            "desc: shareConfig.desc," +// 分享描述
+                            "link: shareConfig.link," +// 分享链接
+                            "imgUrl: shareConfig.imgUrl," +// 分享图标
+                            "success: function() {"+
+                                // 用户确认分享后执行的回调函数
+                            "},"+
+                            "cancel: function() {"+
+                                // 用户取消分享后执行的回调函数
+                            "}"+
+                        "});"+
+                    "});"+
+                "},"+
+                "error: function() {"+
+                    "alert('接口数据失败');"+
+                "}"+
+                "});</script>";
+       /* -------------- */
+
     };
 
     //返回给html5的数据
@@ -392,45 +484,6 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 '</script>';
     };
 
-    $(function() {
-        $('#isLoading').change(function(){
-            if($(this).prop("checked")){
-                avalon.vmodels.root.isLoading='true';
-            }else{
-                avalon.vmodels.root.isLoading='false';
-            }
-        });
-        $('#direction').change(function(){
-            if($(this).prop("checked")){
-                avalon.vmodels.root.isdirection='horizontal';
-            }else{
-                avalon.vmodels.root.isdirection='vertical';
-            }
-        });
-        $('#isIndicator').change(function(){
-            if($(this).prop("checked")){
-                avalon.vmodels.root.isIndicator='true';
-            }else{
-                avalon.vmodels.root.isIndicator='false';
-            }
-        });
-        $('#isArrow').change(function(){
-            if($(this).prop("checked")){
-                avalon.vmodels.root.isArrow='true';
-            }else{
-                avalon.vmodels.root.isArrow='false';
-            }
-        });
-        $('#isMusic').change(function(){
-            if($(this).prop("checked")){
-                avalon.vmodels.root.isMusic='true';
-                avalon.vmodels.root.h5musicpath='http://eightfeet.github.io/html5master/vendor/parallax/dist/bg.mp3';
-            }else{
-                avalon.vmodels.root.isMusic='false';
-                avalon.vmodels.root.h5musicpath='';
-            }
-        });
-    });
 
 
 
@@ -446,8 +499,16 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         isIndicator:'true',// 有无指示点
         isArrow:'true',//有无指示箭头
         isMusic:'false',//有无音乐
-
+        isWeixin: false,
         h5musicpath:'',
+
+        //微信接入
+        wxSdkapi: '',//微信SDK接口
+        wxSdkappid:'',//微信appID
+        pageLinkshare:'',//分享页面链接
+        shareTitle:'',//分享标题
+        shareDesc:'',//分享描述
+        shareIcon:'',//分享图标路径
 
         header: 'modules/header/header.html', //头部模板
         footer: 'modules/footer/footer.html',//页脚模板
@@ -515,6 +576,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
             animShow();
             saveLocaldata();
         },
+
         //发布到服务器。这里需要服务器上作相应处理
         html5master:{
             h5header: '<!doctype html>'+
@@ -535,6 +597,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                     '<div class="pages">',
             h5music:'',
             h5parallax: '',
+            h5weixin:'',
             h5footer:'</div></div>' +
                             '</body>'+
                             '</html>',
@@ -545,22 +608,28 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         stagePublish: function() {
             h5Data();
             setH5parallax();//配置滚动
-            setH5music();//配置背景音乐
 
-            var publishData = '';
+
+            msroot.html5master.h5weixin='';//重置微信配置
+            msroot.html5master.h5music='';//重置音乐
+
+            var publishData = '';//重置发布配置
+
+            if(msroot.isWeixin){
+                wxSdkshare();//微信分享配置
+            }
 
             if(msroot.isMusic=='true'){
-                publishData= msroot.html5master.h5header+
+                setH5music();//配置背景音乐
+            }
+
+            publishData= msroot.html5master.h5header+
                 msroot.html5master.h5content+
                 msroot.html5master.h5parallax+
                 msroot.html5master.h5music+
+                msroot.html5master.h5weixin+
                 msroot.html5master.h5footer;
-            }else{
-                publishData= msroot.html5master.h5header+
-                msroot.html5master.h5content+
-                msroot.html5master.h5parallax+
-                msroot.html5master.h5footer;
-            };
+
             msroot.loading=true;
             dataRequire('http://o-o.ren/h5','Post',{'html':publishData},function(data){
                 avalon.log('返回链接'+data.url);
@@ -575,20 +644,27 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         saveHtml: function() {
             h5Data();
             setH5parallax();//配置滚动
-            setH5music();//配置背景音乐
+
             msroot.saveHtmlcontent='';//清空数据
+            msroot.html5master.h5weixin='';//重置微信配置
+            msroot.html5master.h5music='';//重置音乐
+
+            var publishData = '';//重置发布配置
+
+            if(msroot.isWeixin){
+                wxSdkshare();//微信分享配置
+            }
+
             if(msroot.isMusic=='true'){
-                msroot.saveHtmlcontent=msroot.html5master.h5header+
+                setH5music();//配置背景音乐
+            }
+
+            msroot.saveHtmlcontent = msroot.html5master.h5header+
                 msroot.html5master.h5content+
                 msroot.html5master.h5parallax+
                 msroot.html5master.h5music+
+                msroot.html5master.h5weixin+
                 msroot.html5master.h5footer;
-            }else{
-                msroot.saveHtmlcontent=msroot.html5master.h5header+
-                msroot.html5master.h5content+
-                msroot.html5master.h5parallax+
-                msroot.html5master.h5footer;
-            }
         },
 
         //导入pages数据
@@ -632,7 +708,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
                 animShow();
             }else{
                 alert('数据不正确！');
-            };
+            }
         },
 
         //导出pages数据

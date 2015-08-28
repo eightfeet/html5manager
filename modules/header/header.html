@@ -71,6 +71,7 @@
                     </div>
                     <div class="col-lg-1"></div>
                 </div>
+
                 <div class="row" style="margin-top:20px">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
@@ -84,9 +85,145 @@
                     </div>
                     <div class="col-lg-1"></div>
                 </div>
+
+                <div class="row" style="margin-top:20px">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="isWeixin"
+                                ms-attr-checked="{{isWeixin?true:false}}"> 微信分享配置
+                        </label>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div ms-if="isWeixin">
+                    <div class="row" style="margin-top:20px">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  微信SDK接口
+                                </span>
+                                <input type="text" class="form-control"    ms-duplex="wxSdkapi">
+                              </div><!-- /input-group -->
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  微信appID
+                                </span>
+                                <input type="text" class="form-control"    ms-duplex="wxSdkappid">
+                              </div><!-- /input-group -->
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  分享页面链接
+                                </span>
+                                <input type="text" class="form-control"    ms-duplex="pageLinkshare">
+                              </div><!-- /input-group -->
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  分享标题
+                                </span>
+                                <input type="text" class="form-control"    ms-duplex="shareTitle">
+                              </div><!-- /input-group -->
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  分享描述
+                                </span>
+                                <input type="text" class="form-control"    ms-duplex="shareDesc">
+                              </div><!-- /input-group -->
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    <div class="row" style="margin-top:10px">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  分享图标路径
+                                </span>
+                                <input type="text" class="form-control"    ms-duplex="shareIcon">
+                              </div><!-- /input-group -->
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+
+
+
+                </div>
             </div>
             <div class="modal-footer" style="text-align: center">
         <button type="button" class="btn btn-primary" data-dismiss="modal" style="padding: 5px 20px;">确定</button>
+        <script >
+                    $(document).ready(function() {
+                         $('#isLoading').change(function(){
+                            if($(this).prop("checked")){
+                                avalon.vmodels.root.isLoading='true';
+                            }else{
+                                avalon.vmodels.root.isLoading='false';
+                            }
+                        });
+                        $('#direction').change(function(){
+                            if($(this).prop("checked")){
+                                avalon.vmodels.root.isdirection='horizontal';
+                            }else{
+                                avalon.vmodels.root.isdirection='vertical';
+                            }
+                        });
+                        $('#isIndicator').change(function(){
+                            if($(this).prop("checked")){
+                                avalon.vmodels.root.isIndicator='true';
+                            }else{
+                                avalon.vmodels.root.isIndicator='false';
+                            }
+                        });
+                        $('#isArrow').change(function(){
+                            if($(this).prop("checked")){
+                                avalon.vmodels.root.isArrow='true';
+                            }else{
+                                avalon.vmodels.root.isArrow='false';
+                            }
+                        });
+                        $('#isMusic').change(function(){
+                            if($(this).prop("checked")){
+                                avalon.vmodels.root.isMusic='true';
+                                avalon.vmodels.root.h5musicpath='http://eightfeet.github.io/html5master/vendor/parallax/dist/bg.mp3';
+                            }else{
+                                avalon.vmodels.root.isMusic='false';
+                                avalon.vmodels.root.h5musicpath='';
+                            }
+                        });
+                        $('#isWeixin').change(function(){
+                            if($(this).prop("checked")){
+                                avalon.vmodels.root.isWeixin=true;
+                            }else{
+                                avalon.vmodels.root.isWeixin=false;
+                            }
+                        });
+                    });
+        </script>
       </div>
         </div>
     </div>
