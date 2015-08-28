@@ -217,6 +217,25 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         rootMd.pages.set(page, pageTemp);
     };
 
+    var h5headerSet =function(){
+        var rootMd = avalon.vmodels.root;
+        rootMd.html5master.h5header='<!doctype html>'+
+                    '<html lang="en">'+
+                    '<head>'+
+                        '<meta charset="utf-8">'+
+                        '<meta name="format-detection" content="telephone=no" />'+
+                        '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>'+
+                        '<meta name="apple-mobile-web-app-capable" content="yes" />'+
+                        '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />'+
+                        '<title>'+rootMd.titPublish+'</title>'+
+                        '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax.css">'+
+                        '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/parallax-animation.css">'+
+                         '<link rel="stylesheet" href="http://eightfeet.github.io/html5master/vendor/parallax/dist/custom.css">'+
+                    '</head>'+
+                    '<body>'+
+                    '<div class="wrapper">'+
+                    '<div class="pages">';
+    };
     var wxSdkshare = function(){
         var rootMd = avalon.vmodels.root;
         //页面数据
@@ -493,6 +512,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         footinfomation: '营养家平台开发部',
 
         //发布设置
+        titPublish:'未命名',
         isLoading:'true',
         isdirection:'vertical',//是否垂直滚动,（horizontal水平）
         isswipeAnim:'default',// 滚动动画，"default/cover"
@@ -606,6 +626,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
 
 
         stagePublish: function() {
+            h5headerSet();
             h5Data();
             setH5parallax();//配置滚动
 
@@ -642,6 +663,7 @@ require(['avalon', 'domReady!', 'bootstrap', 'css', 'jquery', 'parallax'], funct
         //保存为Html页面,
         saveHtmlcontent:'',
         saveHtml: function() {
+            h5headerSet();
             h5Data();
             setH5parallax();//配置滚动
 
